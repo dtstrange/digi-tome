@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
         pageCount: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        link: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     }); 
     PublishedBooks.associate = function(models) {
@@ -21,12 +25,6 @@ module.exports = function(sequelize, DataTypes) {
         });
 
         models.PublishedBooks.belongsTo(models.PurchasedBooks, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
-
-        models.PublishedBooks.belongsTo(models.BookLinks, {
             foreignKey: {
                 allowNull: false
             }
