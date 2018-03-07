@@ -1,9 +1,11 @@
-var db = require("../models");
-var express = require("express");
-var router = express.Router();
+const db = require("../models");
+const express = require("express");
+const router = express.Router();
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
-var authCtrl = require("../controller/auth/auth-ctrl.js");
+const authCtrl = require("../controller/auth/auth-ctrl.js");
+const fileUpload = require('express-fileupload');
+
 
 router.post("/upload", (req,res)=>{
     var book = {
@@ -15,6 +17,7 @@ router.post("/upload", (req,res)=>{
     db.PublishedBooks.create(book)
     .then(function(resp) {
         res.json({success: true});
+        
     })
     .catch(err =>{
         console.error(err);
@@ -41,7 +44,7 @@ router.put("/upload/:id", (req,res)=>{
     });
 });
 
-router.put("/delete/:id", (req,res)=>{
+router.delete("/delete/:id", (req,res)=>{
     var book = {
         title: req.body.title.trim(),
         genre: req.body.genre,

@@ -22,10 +22,8 @@ ctrl.login = function(req, res) {
     let email = req.body.email;
     let password = req.body.password;
     models.User.findOne({where: {
-        email: email,
-        [Op.or]:[
-            {username:req.body.username}
-        ]
+        email: email
+        
 }})
     .then(function(resp) {
         if(resp) {
@@ -46,6 +44,7 @@ ctrl.login = function(req, res) {
     })
     .catch(function(err) {
         console.log(err);
+        res.status(500).json({message:'Something went wrong', error: err})
     })
 };
 ctrl.register = function(req, res) {
