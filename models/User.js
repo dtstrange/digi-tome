@@ -35,10 +35,7 @@ module.exports = function(sequelize, DataTypes) {
       models.User.hasMany(models.PublishedBooks, {
           onDelete: "cascade"
       });
-      models.User.hasMany(models.PurchasedBooks, {
-          //not sure if this cascade is correct. in a many to many relationship, will it just remove its id from the other table? or will it delete the row regardless of whether other ids exist?
-          onDelete: "cascade"
-      });
+      models.User.belongsToMany(models.PurchasedBooks, { through: 'book_user' })
     };
     return User; 
   };

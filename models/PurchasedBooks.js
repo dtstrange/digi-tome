@@ -6,8 +6,8 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: false
             }
         });
-
-        models.PurchasedBooks.hasMany(models.User, {});
+    
+        models.PurchasedBooks.belongsToMany(models.User, { through: 'book_user' });
     };
     return PurchasedBooks; 
   };
