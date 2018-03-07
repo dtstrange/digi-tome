@@ -11,13 +11,26 @@ router.post("/upload", (req,res)=>{
     var book = {
         title: req.body.title.trim(),
         genre: req.body.genre,
-        pageCount: req.body.pageCount.trim()
+        pageCount: req.body.pageCount.trim(),
+        description: req.body.description,
+        link: '/books/' + req.body.userId + '/' + req.body.title.trim()
     }
     
     db.PublishedBooks.create(book)
     .then(function(resp) {
         res.json({success: true});
+        if (!req.files)
+            return res.status(400).send('No files were uploaded.');
+
+        let book = req.files.book;
+
+        book.mv('/books/' + req.body.userId + '/' + req.body.title.trim() + '/' + resp.id + ".pdf", function(err) {
+            if (err)
+              return res.status(500).send(err);
         
+            res.send('File uploaded!');
+          });
+
     })
     .catch(err =>{
         console.error(err);
