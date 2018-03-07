@@ -9,6 +9,8 @@ import Profile from './pages/Profile'
 import Upload from './pages/Upload'
 import Book from './pages/Book'
 
+import './App.css';
+
 class App extends Component {
   render() {
     return (
