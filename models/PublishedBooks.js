@@ -24,11 +24,7 @@ module.exports = function(sequelize, DataTypes) {
             }
         });
 
-        models.PublishedBooks.belongsTo(models.PurchasedBooks, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
+        models.PublishedBooks.hasOne(models.PurchasedBooks);
     };
     return PublishedBooks; 
   };
