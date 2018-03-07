@@ -27,11 +27,12 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: "/assets/images/defaultUser.png"
         },
         balance: {
-            type: DataTypes.FLOAT
+            type: DataTypes.FLOAT,
+            defaultValue: 0
         }
     }); 
     User.associate = function(models) {
-      models.User.hasMany(models.publishedBooks, {
+      models.User.hasMany(models.PublishedBooks, {
           onDelete: "cascade"
       });
       models.User.belongsToMany(models.PurchasedBooks, { through: 'book_user' })
