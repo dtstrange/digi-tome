@@ -16,7 +16,7 @@ class Navbar extends React.Component {
                         <div className="navbar-header">
                             <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                                 <span className="sr-only">Toggle navigation</span>
-                                <span className="icon-bar"></span>
+                                <span className="icon-bar">Test</span>
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                             </button>
@@ -30,7 +30,16 @@ class Navbar extends React.Component {
                                 <button type="submit" className="btn btn-default">Submit</button>
                             </form>
                             <ul className="nav navbar-nav navbar-right">
-                                {(this.state.loggedIn) ? <LoggedIn /> : <SignIn />}
+                                <li className="nav-item active">
+                                    <a className="nav-link" href="/profile">Profile</a>
+                                </li>
+                                <li className="nav-item active">
+                                    <a className="nav-link" href="/upload">Upload</a>
+                                </li>
+                                <li className="nav-item active">
+                                    <a className="nav-link" href="/">Login/Signup</a>
+                                </li>
+                                {/* {(this.state.loggedIn) ? <LoggedIn /> : <SignIn />} */}
                             </ul>
                         </div>
                     </div>
