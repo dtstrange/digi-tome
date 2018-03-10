@@ -6,7 +6,7 @@ class Upload extends React.Component {
         return(
             <div id="main">
                 <h5>Upload your stories here</h5>
-                <form enctype="multipart/form-data" action="/upload/image" method="post">
+                <form enctype="multipart/form-data" method="post">
                     <label>
                         Title:
                         <input id="upload-title" type="text" />
