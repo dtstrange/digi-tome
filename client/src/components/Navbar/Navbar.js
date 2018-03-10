@@ -5,9 +5,6 @@ import LoggedIn from './LoggedIn'
 console.log(SignIn, LoggedIn)
 
 class Navbar extends React.Component {
-    state = {
-        loggedIn: false
-    }
     render() {
         return (
             <div>
@@ -39,7 +36,7 @@ class Navbar extends React.Component {
                                 <li className="nav-item active">
                                     <a className="nav-link" href="/">Login/Signup</a>
                                 </li>
-                                {/* {(this.state.loggedIn) ? <LoggedIn /> : <SignIn />} */}
+                                { (window.localStorage.getItem("token") != null) ? <LoggedIn /> : <SignIn />}
                             </ul>
                         </div>
                     </div>

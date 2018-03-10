@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Navbar from './components/Navbar/Navbar'
 
+import PrivateRoute from './components/ProtectedRoute'
+
 import Login from './pages/Login'
 import Search from './pages/Search'
 import Profile from './pages/Profile'
@@ -20,10 +22,10 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={Login} />
             <Route exact path="/search" component={Search} />
-            <Route exact path="/profile" component={Profile} />
+            <PrivateRoute exact path="/profile" component={Profile} />
             <Route exact path="/profile/:username" component={Profile} />
-            <Route exact path="/upload" component={Upload} />
-            <Route exact path="/book/:id" component={Book} />
+            <PrivateRoute exact path="/upload" component={Upload} />
+            <PrivateRoute exact path="/book/:id" component={Book} />
           </Switch>
         </div>
       </Router>
