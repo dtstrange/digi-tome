@@ -31,15 +31,15 @@ class Navbar extends React.Component {
                             </form>
                             <ul className="nav navbar-nav navbar-right">
                                 <li className="nav-item active">
-                                    <a className="nav-link" href="/profile">Profile</a>
+                                    <a className="nav-link" href="/search">Search</a>
                                 </li>
                                 <li className="nav-item active">
                                     <a className="nav-link" href="/upload">Upload</a>
                                 </li>
                                 <li className="nav-item active">
-                                    <a className="nav-link" href="/">Login/Signup</a>
+                                    <a className="nav-link" href="/profile">Profile</a>
                                 </li>
-                                {/* {(this.state.loggedIn) ? <LoggedIn /> : <SignIn />} */}
+                                {(this.state.loggedIn) ? <LoggedIn /> : <SignIn />}
                             </ul>
                         </div>
                     </div>
