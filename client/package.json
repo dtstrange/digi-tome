@@ -2,6 +2,7 @@
   "name": "digitome",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "create-react-app": "^1.5.2",
     "react": "^16.2.0",

@@ -7,13 +7,14 @@ const jwt = require("express-jwt");
 const authRoutes = require("./routes/auth-routes.js");
 const unauthRoutes = require("./routes/unauth-routes.js");
 const bookRoutes = require("./routes/book-routes.js");
+const profileRoute = require("./routes/profile-routes.js")
 
 //middleware
 const bodyParser = require('body-parser');
 
 //express setup
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const isDev = process.env.NODE_ENV === 'development';
 // Requiring our models for syncing
 const db = require(path.join(__dirname, '/models'));
@@ -33,6 +34,7 @@ app.use(jwt({
     userProperty: 'payload'
 }));
 app.use("/api/books", bookRoutes);
+app.use("/api/profile", profileRoute);
 
 
 db.sequelize.sync({ force: isDev }).then(function () {
