@@ -13,7 +13,7 @@ const bodyParser = require('body-parser');
 
 //express setup
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 const isDev = process.env.NODE_ENV === 'development';
 // Requiring our models for syncing
 const db = require(path.join(__dirname, '/models'));
