@@ -2,7 +2,7 @@
   "name": "digi-tome",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,6 +26,8 @@
     "jsonwebtoken": "^8.2.0",
     "mysql2": "^1.5.2",
     "npm": "^5.7.1",
-    "sequelize": "^4.35.1"
+    "pug": "^2.0.1",
+    "sequelize": "^4.35.1",
+    "stripe": "^5.5.0"
   }
 }
