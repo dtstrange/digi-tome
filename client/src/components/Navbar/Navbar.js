@@ -36,6 +36,9 @@ class Navbar extends React.Component {
                                 <li className="nav-item active">
                                     <a className="nav-link" href="/profile">Profile</a>
                                 </li>
+                                <li className="nav-item active">
+                                    <a className="nav-link" href="/purchase">Purchase</a>
+                                </li>
                                 { (window.localStorage.getItem("token") != null) ? <LoggedIn /> : <SignIn />}
                             </ul>
                         </div>
