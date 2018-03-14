@@ -10,8 +10,9 @@ const jwt = require("express-jwt");
 const authRoutes = require("./routes/auth-routes.js");
 const unauthRoutes = require("./routes/unauth-routes.js");
 const bookRoutes = require("./routes/book-routes.js");
-const profileRoute = require("./routes/profile-routes.js")
-const stripeRoutes = require("./routes/stripe-routes.js")
+const profileRoute = require("./routes/profile-routes.js");
+const stripeRoutes = require("./routes/stripe-routes.js");
+const formidable = require('express-formidable');
 
 //middleware
 const bodyParser = require('body-parser');
@@ -28,6 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
 
 //stripe engine
 app.set("view engine", "pug");
