@@ -16,16 +16,12 @@ class Upload extends React.Component {
         if (!this.state.genre1) {
             return false;
         }
-        data.append("title", this.state.title) 
         let genre = this.state.genre1;
         if (this.state.genre2) genre += "," + this.state.genre2;
         if (this.state.genre3) genre += "," + this.state.genre3;
-        data.append("genre", genre);
-        data.append("description", this.state.description);
-        data.append("userId", JSON.parse(window.atob(loginToken.split('.')[1])).id);
-        data.append("price", this.state.bookPrice);
         data.append("bookFile", document.getElementById("pdf-file").files[0])
-        axios.post('/api/books/upload', data, { headers: { "Authorization": "Bearer " + loginToken } })
+        //:title/:genre/:description/:userId/:price
+        axios.post('/api/books/upload?title=' + this.state.title + "&genre=" + genre + "&description=" + this.state.description + "&price=" + this.state.bookPrice, data, { headers: { "Authorization": "Bearer " + loginToken } })
         .then((data) => {
             console.log(data)
         }).catch((error) => {
@@ -53,7 +49,7 @@ class Upload extends React.Component {
                     <label htmlFor="bookFile">Select PDF:</label>
                     <input name="bookFile" onChange={this.onChangeHandler} id="pdf-file" type="file" />
                     <br />
-                    <input onClick={this.submitBook} class="submit" type="submit" value="Submit" />
+                    <input onClick={this.submitBook} className="submit" type="submit" value="Submit" />
                 </form>
             </div>
         );

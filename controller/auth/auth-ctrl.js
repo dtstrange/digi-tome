@@ -48,6 +48,7 @@ ctrl.login = function(req, res) {
     })
 };
 ctrl.register = function(req, res) {
+    console.log("registar")
     var user = {
         username: req.body.username.trim(),
         email: req.body.email.trim().toLowerCase()
