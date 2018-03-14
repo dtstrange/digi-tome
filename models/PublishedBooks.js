@@ -8,8 +8,8 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        pageCount: {
-            type: DataTypes.INTEGER,
+        price: {
+            type: DataTypes.FLOAT,
             allowNull: false
         },
         description: {

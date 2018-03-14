@@ -11,7 +11,7 @@ router.post("/upload", (req,res)=>{
     var book = {
         title: req.body.title.trim(),
         genre: req.body.genre,
-        pageCount: req.body.pageCount.trim(),
+        price: req.body.pageCount.trim(),
         description: req.body.description,
         link: '/books/' + req.body.userId + '/' + req.body.title.trim()
     }
