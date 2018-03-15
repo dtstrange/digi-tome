@@ -35,7 +35,7 @@ router.post("/upload", (req, res) => {
                     .create(book)
                     .then((resp) => {
                         // console.log("book saved to DB");
-                        res.status(200).json({ message: "Upload successful!", response: resp });
+                        res.status(200).json({ message: "Upload successful!"});
                     })
                     .catch((err) => {
                         console.error(err);
