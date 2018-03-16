@@ -37,7 +37,7 @@ router.post("/upload", (req, res) => {
                     .create(book)
                     .then((resp) => {
                         // console.log("book saved to DB");
-                        res.status(200).json({ message: "Upload successful!"});
+                        res.status(200).json({ message: "Upload successful!" });
                     })
                     .catch((err) => {
                         console.error(err);
@@ -50,62 +50,62 @@ router.post("/upload", (req, res) => {
             })
     })
 });
+
 router.get("/search", (req, res) => {
-    if (req.query) {
-        let searchParams = {}
-        if (req.query.title) {
-            searchParams.title = {
-                [Op.like]: '%' + req.query.title + '%'
-            }
-        }
-        if (req.query.genre) {
-            const genres = req.query.genre.split(',').map((elem) => {
-                return '%' + elem + '%'
-            });
-            console.log(genres);
-            searchParams.genre = {
-                [Op.in]: genres
-            }
-            //returns empty result
-        }
-        if (req.query.author) {
-            searchParams.include = {
-                model: db.User,
-                where: {
-                    username: {
-                        [Op.like]: '%' + req.query.author + '%'
-                    }
-                }
-            }
-            //returns empty result
-        }
-        if (!(searchParams === {})) {
-            console.log(searchParams);
-            db.PublishedBooks
-                .findAll({
-                    where: searchParams,
-                    attributes: {
-                        exclude: ["link"]
-                    }
-                })
-                .then((response) => {
-                    console.log(response);
-                    res.json({
-                        success: true, 
-                        response: response
-                    });
-                })
-                .catch((err) => {
-                    console.error(err);
-                    res.status(500).json({message: "Error (500): Internal Server Error", error: err})
-                })
-        } else {
-            res.status(404).json({message: "Error (404): No valid search params"})
-        }
-    } else {
-        return res.status(404).json({message: "Error (404): No search parameters"});
+    let searchParams = {
+        where: {},
+        attributes: {
+            exclude: ["link", "createdAt", "updatedAt", "UserId"]
+        },
+        include: [{
+            model: db.User,
+            attributes: ["id", "username"]
+        }]
     }
+    if (req.query.title) {
+        searchParams.where.title = {
+            [Op.like]: '%' + req.query.title + '%'
+        }
+    }
+    if (req.query.genre) {
+        const genres = req.query.genre.split(',').map((elem) => {
+            return '%' + elem + '%'
+        });
+        if (genres.length > 1) {
+            const opLikes = genres.map((elem) => {
+                return { [Op.like]: elem }
+            })
+            searchParams.where.genre = {
+                [Op.or]: opLikes
+            }
+        } else {
+            searchParams.where.genre = {
+                [Op.like]: genres[0]
+            }
+        }
+    }
+    if (req.query.author) {
+        searchParams.include[0].where = {
+            username: {
+                [Op.like]: '%' + req.query.author + '%'
+            }
+        }
+    }
+    console.log(searchParams)
+    db.PublishedBooks
+        .findAll(searchParams)
+        .then((response) => {
+            res.json({
+                success: true,
+                response: response
+            });
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ message: "Error (500): Internal Server Error", error: err })
+        })
 })
+
 router.put("/upload/:id", (req, res) => {
     var book = {
         title: req.body.title.trim(),

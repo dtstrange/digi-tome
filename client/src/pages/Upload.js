@@ -2,6 +2,16 @@ import React from 'react';
 import Genre from '../components/Genre.js';
 import axios from 'axios'
 class Upload extends React.Component {
+
+    state = {
+        title: '',
+        price: '',
+        description: '',
+        genre1: '',
+        genre2: '',
+        genre3: ''
+    }
+
     onChangeHandler = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -11,7 +21,12 @@ class Upload extends React.Component {
         event.preventDefault();
         const loginToken = window.localStorage.getItem("token");
         let data = new FormData();
-        if (!this.state.genre1) {
+        if (!this.state.genre1 ||
+            !this.state.title ||
+            !this.state.price ||
+            !(document.getElementById("pdf-file").files[0])) {
+            alert("Missing required information")
+            //would like to show this in a modal
             return false;
         }
         let genre = this.state.genre1;
@@ -20,14 +35,14 @@ class Upload extends React.Component {
         data.append("bookFile", document.getElementById("pdf-file").files[0])
         //:title/:genre/:description/:userId/:price
         axios.post('/api/books/upload?title=' + this.state.title + "&genre=" + genre + "&description=" + this.state.description + "&price=" + this.state.bookPrice, data, { headers: { "Authorization": "Bearer " + loginToken } })
-        .then((data) => {
-            console.log(data)
-        }).catch((error) => {
-            console.error(error);
-        })
+            .then((data) => {
+                console.log(data)
+            }).catch((error) => {
+                console.error(error);
+            })
     }
     render() {
-        return(
+        return (
             <div id="main">
                 <h5>Upload your stories here</h5>
                 <form encType="multipart/form-data">

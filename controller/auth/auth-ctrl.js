@@ -1,6 +1,8 @@
 const models = require("../../models");
 const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 const ctrl = {};
 
 function getHash(password, salt) {
@@ -19,11 +21,14 @@ function generateJWT(user) {
     }, process.env.JWT_SECRET);
 }
 ctrl.login = function(req, res) {
-    let email = req.body.email;
+    let user = req.body.user;
     let password = req.body.password;
     models.User.findOne({where: {
-        email: email
-        
+        [Op.or]: [{
+            email: user
+        },{
+            username: user
+        }]  
 }})
     .then(function(resp) {
         if(resp) {
