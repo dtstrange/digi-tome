@@ -48,8 +48,8 @@ app.use("/purchase", stripeRoutes);
 app.use("/api/books", bookRoutes);
 app.use("/api/profile", profileRoute);
 
-
-db.sequelize.sync({ force: isDev }).then(function () {
+//temporarily set to false to avoid losing db
+db.sequelize.sync({ force: false }).then(function () {
     app.listen(PORT, function () {
         console.log("App listening on PORT " + PORT);
     })
