@@ -5,7 +5,7 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            user: '',
             password: ''
         };
 
@@ -23,7 +23,7 @@ class Login extends React.Component {
         event.preventDefault();
         axios.post("/api/user/login",
                    {
-                       email: this.state.email,
+                       user: this.state.user,
                        password: this.state.password
                    })
              .then((resp) => {
@@ -41,8 +41,8 @@ class Login extends React.Component {
             <form className="login-form" onSubmit={this.handleSubmit}>
                 <h3>Digi-tome Login</h3>
                 <label>
-                    Email:
-                    <input name="email" type="text" value={this.state.value} onChange={this.handleChange} />
+                    Username/Email:
+                    <input name="user" type="text" value={this.state.value} onChange={this.handleChange} />
                 </label>
                 <label>
                     Password:
