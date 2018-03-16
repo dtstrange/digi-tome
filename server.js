@@ -10,8 +10,9 @@ const jwt = require("express-jwt");
 const authRoutes = require("./routes/auth-routes.js");
 const unauthRoutes = require("./routes/unauth-routes.js");
 const bookRoutes = require("./routes/book-routes.js");
-const profileRoute = require("./routes/profile-routes.js")
-const stripeRoutes = require("./routes/stripe-routes.js")
+const profileRoute = require("./routes/profile-routes.js");
+const stripeRoutes = require("./routes/stripe-routes.js");
+const fileUpload = require('express-fileupload');
 
 //middleware
 const bodyParser = require('body-parser');
@@ -21,6 +22,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3001;
 const isDev = process.env.NODE_ENV === 'development';
+
+//fileupload middleware
+app.use(fileUpload())
 // Requiring our models for syncing
 const db = require(path.join(__dirname, '/models'));
 app.use(express.static(process.cwd() + '/public'));
@@ -28,6 +32,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
 
 //stripe engine
 app.set("view engine", "pug");
