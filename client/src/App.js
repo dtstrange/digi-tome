@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from './components/Navbar/Navbar'
 
 import PrivateRoute from './components/ProtectedRoute'
-import Stripe from './components/Stripe'
 
 import Login from './pages/Login'
 import Search from './pages/Search'
