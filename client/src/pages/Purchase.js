@@ -2,7 +2,6 @@ import React from 'react';
 import PurchaseForm from '../components/PurchaseForm';
 import PurchaseSuccess from '../components/PurchaseSuccess';
 
-<script src="https://js.stripe.com/v3/"></script>
 
 class Purchase extends React.Component {
     
@@ -41,8 +40,5 @@ class Purchase extends React.Component {
         )
     }
 }
-
-
-<script src="js/l10n.js" data-rel-js></script>
 
 export default Purchase;
