@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'react-router-dom'
 import Genre from '../components/Genre.js';
 import axios from 'axios'
 
@@ -57,7 +58,7 @@ class Upload extends React.Component {
                     <label htmlFor="bookFile">Select PDF:</label>
                     <input name="bookFile" onChange={this.onChangeHandler} id="pdf-file" type="file" />
                     <br />
-                    <input onClick={this.submitBook} className="submit" type="submit" value="Submit" />
+                    <input onClick={this.submitBook} className="submit" type="submit" value="Submit" />                    
                 </form>
             </div>
         );

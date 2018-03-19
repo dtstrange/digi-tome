@@ -8,6 +8,7 @@ class Profile extends React.Component {
         this.state = {
             books: [],
             title: '',
+            genre: '',
             description: ''
         }
     }
@@ -15,11 +16,11 @@ class Profile extends React.Component {
     componentDidMount() {
         const loginToken = window.localStorage.getItem("token");
         let genre = this.state.genre1;
-        if (this.state.genre2) genre += "," + this.state.genre2;
-        if (this.state.genre3) genre += "," + this.state.genre3;
+        if (this.state.genre2) genre += ", " + this.state.genre2;
+        if (this.state.genre3) genre += ", " + this.state.genre3;
        
         axios({
-            url: '/api/books/search?title=' + this.state.title + '&description=' + this.state.description,
+            url: '/api/books/search?title=' + this.state.title + '&genre' + this.state.genre + '&description=' + this.state.description,
             method: 'get',
             headers: { "Authorization": "Bearer " + loginToken } })
             .then((resp) => {
@@ -41,16 +42,20 @@ class Profile extends React.Component {
         var bookList = this.state.books.map(function(item) {
             return (
                 <div>
-                    <h3>{item.title}</h3>
+                    <h3 class="story-title">{item.title}</h3>
+                    <h6><i>{item.genre}</i></h6>
                     <p>{item.description}</p>
-                </div>
+                    <br />
+                </div>  
             )
         })
         console.log(bookList);
         
         return(
-            <div id="main">
-                <h2>My Stories</h2>
+            <div>
+                <div id="profile-stories-header">
+                    <h2>My Stories</h2>
+                </div>
                 <div id="profile-stories">
                     <div className="story">
                         <div className="story-title">
