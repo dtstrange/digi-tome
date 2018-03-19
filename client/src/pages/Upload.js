@@ -1,6 +1,7 @@
 import React from 'react';
 import Genre from '../components/Genre.js';
 import axios from 'axios'
+
 class Upload extends React.Component {
 
     state = {
@@ -21,14 +22,7 @@ class Upload extends React.Component {
         event.preventDefault();
         const loginToken = window.localStorage.getItem("token");
         let data = new FormData();
-        if (!this.state.genre1 ||
-            !this.state.title ||
-            !this.state.price ||
-            !(document.getElementById("pdf-file").files[0])) {
-            alert("Missing required information")
-            //would like to show this in a modal
-            return false;
-        }
+        
         let genre = this.state.genre1;
         if (this.state.genre2) genre += "," + this.state.genre2;
         if (this.state.genre3) genre += "," + this.state.genre3;
@@ -41,6 +35,7 @@ class Upload extends React.Component {
                 console.error(error);
             })
     }
+
     render() {
         return (
             <div id="main">
