@@ -3,19 +3,15 @@ import axios from 'axios'
 
 class Profile extends React.Component {
 
-  
-
     constructor(props) {
         super(props);
         this.state = {
+            books: [],
             title: '',
-            price: '',
-            description: '',
-            genre1: '',
-            genre2: '',
-            genre3: ''
+            description: ''
         }
     }
+    
     componentDidMount() {
         const loginToken = window.localStorage.getItem("token");
         let genre = this.state.genre1;
@@ -23,15 +19,16 @@ class Profile extends React.Component {
         if (this.state.genre3) genre += "," + this.state.genre3;
        
         axios({
-            url: '/api/books/search?title=' + this.state.title + "&genre=" + genre + "&description=" + this.state.description + "&price=" + this.state.bookPrice,
+            url: '/api/books/search?title=' + this.state.title + '&description=' + this.state.description,
             method: 'get',
             headers: { "Authorization": "Bearer " + loginToken } })
             .then((resp) => {
                 console.log(resp);
-                console.log(resp.data.response[1].title)
+                console.log(resp.data.response);
                 this.setState({
-                    data: resp.data.response
+                    books: resp.data.response
                 })
+                console.log(this.state.books);
                 
 
             }).catch((error) => {
@@ -39,20 +36,28 @@ class Profile extends React.Component {
             })
     }
 
-
-
-
     render() {
+        console.log(this.state.books);
+        var bookList = this.state.books.map(function(item) {
+            return (
+                <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                </div>
+            )
+        })
+        console.log(bookList);
+        
         return(
             <div id="main">
                 <h2>My Stories</h2>
                 <div id="profile-stories">
                     <div className="story">
                         <div className="story-title">
-                            <h3>{this.state.title}</h3>
+                            {bookList}                    
                         </div>
                         <div className="story-synopsis">
-                            <p>{this.state.description}</p>
+                           <p></p>
                         </div>
                     </div>
                 </div>
