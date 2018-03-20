@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Navbar from './components/Navbar/Navbar'
-import PrivateRoute from './components/ProtectedRoute'
-import Stripe from './components/Stripe'
-import Login from './pages/Login'
-import Search from './pages/Search'
-import Profile from './pages/Profile'
-import Upload from './pages/Upload'
-import Book from './pages/Book'
-import Purchase from './pages/Purchase'
+import Navbar from './components/Navbar/Navbar';
+import PrivateRoute from './components/ProtectedRoute';
+import Stripe from './components/Stripe';
+import Login from './pages/Login';
+import Search from './pages/Search';
+import Profile from './pages/Profile';
+import Upload from './pages/Upload';
+import Book from './pages/Book';
+import Purchase from './pages/Purchase';
+
 
 import './App.css';
 

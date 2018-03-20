@@ -53,7 +53,7 @@ ctrl.login = function(req, res) {
     })
 };
 ctrl.register = function(req, res) {
-    console.log("registar")
+    console.log("register")
     var user = {
         username: req.body.username.trim(),
         email: req.body.email.trim().toLowerCase()
@@ -72,5 +72,30 @@ ctrl.register = function(req, res) {
         throw err;
     });
 };
+
+ctrl.update = function(req, res) {
+    console.log("update")
+    var user = {
+        username: req.body.username.trim(),
+        email: req.body.email.trim().toLowerCase()
+    }
+    var salt = getSalt();
+    var hash = getHash(req.body.password, salt);
+    user.salt = salt;
+    user.hash= hash;
+    models.User.update(user, {where: {id: req.params.id}})
+    .then(function(resp) {
+        res.json({success: true});
+    })
+    .catch(function(err) {
+        console.error(err);
+        return res.status(500).end('Update FAILED' + err.toString());
+        throw err;
+    });
+};
+
+
+
+
 
 module.exports = ctrl;
