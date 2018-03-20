@@ -43,7 +43,7 @@ nav .form-control {
     margin-bottom: 3rem;
 }
 
-#profile-stories-header {
+#profile-stories-header, #results-header {
     text-align: center;
     border-bottom: 1px solid #fff;
     padding: 1rem;

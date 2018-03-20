@@ -15,9 +15,6 @@ class Profile extends React.Component {
     
     componentDidMount() {
         const loginToken = window.localStorage.getItem("token");
-        let genre = this.state.genre1;
-        if (this.state.genre2) genre += ", " + this.state.genre2;
-        if (this.state.genre3) genre += ", " + this.state.genre3;
        
         axios({
             url: '/api/books/search?title=' + this.state.title + '&genre' + this.state.genre + '&description=' + this.state.description,
