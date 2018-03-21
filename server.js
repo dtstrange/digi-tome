@@ -11,7 +11,6 @@ const authRoutes = require("./routes/auth-routes.js");
 const unauthRoutes = require("./routes/unauth-routes.js");
 const bookRoutes = require("./routes/book-routes.js");
 const profileRoute = require("./routes/profile-routes.js");
-const stripeRoutes = require("./routes/stripe-routes.js");
 const fileUpload = require('express-fileupload');
 
 //middleware
@@ -34,8 +33,6 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 
-//stripe engine
-app.set("view engine", "pug");
 //routes
 app.use("/api", unauthRoutes);
 app.use("/api/user", authRoutes);
@@ -44,7 +41,6 @@ app.use(jwt({
     secret: process.env.JWT_SECRET,
     userProperty: 'payload'
 }));
-app.use("/purchase", stripeRoutes);
 app.use("/api/books", bookRoutes);
 app.use("/api/profile", profileRoute);
 
@@ -55,4 +51,4 @@ db.sequelize.sync({ force: false }).then(function () {
     })
 });
 
-app.listen(4567);
+
