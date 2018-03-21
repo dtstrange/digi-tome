@@ -5,16 +5,29 @@ class Results extends React.Component {
     render() {
         return(
             <div id="main">
-                <div id="results">
-                    <div class="story">
-                        <div class="story-title">
-                            <h3>Book 1</h3>
-                        </div>
-                        <div class="story-synopsis">
-                            <p>Exactly what you were looking for!</p>
-                        </div>
-                    </div>
-                </div>
+                <table style={{
+                    border: "1px solid white",
+                    width: "100%"
+                }}>
+                    <thead>
+                    <tr style={{border: "1px solid white"}}>
+                        <td>Title</td>
+                        <td>Genres</td>
+                        <td>Synopsis</td>
+                        <td>Author</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {this.props.data.map((elem) => {
+                            return <tr style={{border: "1px solid white"}} key={elem.id}>
+                                <td>{elem.title}</td>
+                                <td>{elem.genre.split(',').join(', ')}</td>
+                                <td>{elem.description}</td>
+                                <td>{elem.User.username}</td>
+                            </tr>
+                        })}
+                    </tbody>
+                </table>
             </div>
         )
     }

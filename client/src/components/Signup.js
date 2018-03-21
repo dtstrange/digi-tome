@@ -8,7 +8,8 @@ class Signup extends React.Component {
         this.state = {
             email: '',
             username: '',
-            password: ''
+            password: '',
+            confirmpw: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -23,19 +24,23 @@ class Signup extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        axios.post("/api/user/new",
-                   {
-                    email: this.state.email,
-                    username: this.state.username,
-                    password: this.state.password
-                   })
-             .then((resp) => {
-                //placeholder code
-                alert("You are now signed up! Nice!")
-             })
-             .catch((err) => {
-                 console.error(err);
-             });
+        if (this.state.password === this.state.confirmpw) {
+            axios.post("/api/user/new",
+                    {
+                        email: this.state.email,
+                        username: this.state.username,
+                        password: this.state.password
+                    })
+                .then((resp) => {
+                    //placeholder code
+                    alert("You are now signed up! Nice!")
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        } else {
+            alert("Passwords do not match");
+        }
     }
 
     render() {
@@ -53,6 +58,10 @@ class Signup extends React.Component {
                 <label>
                     Password:
                     <input name="password" type="password" value={this.state.password} onChange={this.handleChange} />
+                </label><br />
+                <label>
+                    Password:
+                    <input name="confirmpw" type="password" value={this.state.confirmpw} onChange={this.handleChange} />
                 </label><br />
                 <input className="submit" type="submit" value="Submit" />
                 <button className="btn btn-primary" onClick={this.props.changeForm}>Login with existing account.</button>
