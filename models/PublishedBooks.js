@@ -26,8 +26,6 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: false
             }
         });
-
-        models.PublishedBooks.hasOne(models.PurchasedBooks);
     };
     return PublishedBooks; 
   };
