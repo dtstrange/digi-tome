@@ -48,7 +48,4 @@ class Purchase extends React.Component {
     }
 }
 
-
-<script src="js/l10n.js" data-rel-js></script>
-
 export default Purchase;

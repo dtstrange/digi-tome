@@ -14,13 +14,13 @@ class SearchForm extends React.Component {
                     </div><br />
                     <label>
                     Genre:
-                    <div class="genre-box">
+                    <div className="genre-box">
                         <Genre />
                     </div>
-                    <div class="genre-box">
+                    <div className="genre-box">
                         <Genre />
                     </div>
-                    <div class="genre-box">
+                    <div className="genre-box">
                         <Genre />
                     </div>
                 </label>

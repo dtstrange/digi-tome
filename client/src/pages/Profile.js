@@ -1,24 +1,76 @@
 import React from 'react'
+import axios from 'axios'
 
 class Profile extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            books: [],
+            title: '',
+            genre: '',
+            description: ''
+        }
+    }
+    
+    componentDidMount() {
+        const loginToken = window.localStorage.getItem("token");
+        let genre = this.state.genre1;
+        if (this.state.genre2) genre += ", " + this.state.genre2;
+        if (this.state.genre3) genre += ", " + this.state.genre3;
+       
+        axios({
+            url: '/api/books/search?title=' + this.state.title + '&genre' + this.state.genre + '&description=' + this.state.description,
+            method: 'get',
+            headers: { "Authorization": "Bearer " + loginToken } })
+            .then((resp) => {
+                console.log(resp);
+                console.log(resp.data.response);
+                this.setState({
+                    books: resp.data.response
+                })
+                console.log(this.state.books);
+                
+
+            }).catch((error) => {
+                console.error(error);
+            })
+    }
+
     render() {
+        console.log(this.state.books);
+        var bookList = this.state.books.map(function(item) {
+            return (
+                <div>
+                    <h3 class="story-title">{item.title}</h3>
+                    <h6><i>{item.genre}</i></h6>
+                    <p>{item.description}</p>
+                    <br />
+                </div>  
+            )
+        })
+        console.log(bookList);
+        
         return(
-            <div id="main">
-                <h2>My Stories</h2>
+            <div>
+                <div id="profile-stories-header">
+                    <h2>My Stories</h2>
+                </div>
                 <div id="profile-stories">
-                    <div class="story">
-                        <div class="story-title">
-                            <h3>Sample 1</h3>
+                    <div className="story">
+                        <div className="story-title">
+                            {bookList}                    
                         </div>
-                        <div class="story-synopsis">
-                            <p>A tale where something happens, lots of people die, but a couple people survive.
-                            Bittersweet ending.</p>
+                        <div className="story-synopsis">
+                           <p></p>
                         </div>
                     </div>
                 </div>
             </div>
         );
     }
+
 }
+    
 
 export default Profile;
