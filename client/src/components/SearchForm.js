@@ -29,6 +29,7 @@ class SearchForm extends React.Component {
     }
     render() {
         return(
+
             <div>
                 <form>
                 <label htmlFor="title">Title: </label>

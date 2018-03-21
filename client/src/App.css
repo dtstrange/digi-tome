@@ -1,11 +1,14 @@
 
+body {background-color: #181763;}
+
 /* Navigation Bar */
 nav {
-    background: #98bede;
-    background: -moz-linear-gradient(top, #98bede 0%, #deefff 100%);
-    background: -webkit-linear-gradient(top, #98bede 0%,#deefff 100%);
-    background: linear-gradient(to bottom, #98bede 0%,#deefff 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#98bede', endColorstr='#deefff',GradientType=0 );
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c19063+0,fae2ce+100 */
+background: #c19063; /* Old browsers */
+background: -moz-linear-gradient(top, #c19063 0%, #fae2ce 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #c19063 0%,#fae2ce 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #c19063 0%,#fae2ce 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c19063', endColorstr='#fae2ce',GradientType=0 ); /* IE6-9 */
 }
 
 .navbar-default .navbar-brand {
@@ -14,6 +17,14 @@ nav {
 
 nav .form-control {
     height: 30px;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #333;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus {
+  color: #181763;
 }
 
 /* Body */
@@ -26,12 +37,20 @@ nav .form-control {
 #profile-stories, #results {
     background: #fff;
     color: #333;
+    width: 75%;
+    margin: 0 auto;
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+#profile-stories-header {
+    text-align: center;
+    border-bottom: 1px solid #fff;
     padding: 1rem;
 }
 
-#profile-stories h2 {
-    border-bottom: 1px solid #fff;
-    padding: 1rem;
+.story-title {
+  border-bottom: 1px solid #2624a5;
 }
 
 select {
@@ -62,9 +81,12 @@ form select {
 
 /* Login Form */
 .login-form {
-    background: #8e9eab;
-    background: -webkit-linear-gradient(to top, #8e9eab, #eef2f3);
-    background: linear-gradient(to top, #8e9eab, #eef2f3);
+   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
+    background: rgb(255,255,255); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(246,246,246,1) 47%,rgba(237,237,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
     width: 30%;
     margin: 0 auto;
     color: #000;
@@ -79,6 +101,12 @@ form select {
 
 .login-form input {
     float: right;
+}
+
+/* Upload */
+
+#pdf-file {
+  color: #dedede;
 }
 
 /* Stripe */

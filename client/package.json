@@ -4,11 +4,14 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {
+    "axios": "^0.18.0",
     "create-react-app": "^1.5.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
+    "react-stripe-checkout": "^2.6.3",
+    "react-stripe-elements": "^1.6.0",
     "yarn": "^1.5.1"
   },
   "scripts": {
