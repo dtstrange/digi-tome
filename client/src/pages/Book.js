@@ -1,6 +1,5 @@
 import React from 'react';
 import BookWindow from '../components/BookWindow';
-import BookViewer from '../components/BookViewer';
 
 class Book extends React.Component {
     state = {
