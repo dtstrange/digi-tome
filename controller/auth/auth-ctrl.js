@@ -1,6 +1,8 @@
 const models = require("../../models");
 const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 const ctrl = {};
 
 function getHash(password, salt) {
@@ -15,17 +17,20 @@ function generateJWT(user) {
     return jwt.sign({
         id: user.id,
         email: user.email,
+        username: user.username,
         exp: expire.getTime()/1000
     }, process.env.JWT_SECRET);
 }
 ctrl.login = function(req, res) {
-    let email = req.body.email;
+    let user = req.body.user;
     let password = req.body.password;
+    console.log(user);
     models.User.findOne({where: {
-        email: email,
-        [Op.or]:[
-            {username:req.body.username}
-        ]
+        [Op.or]: [{
+            email: user
+        },{
+            username: user
+        }]  
 }})
     .then(function(resp) {
         if(resp) {
@@ -46,13 +51,14 @@ ctrl.login = function(req, res) {
     })
     .catch(function(err) {
         console.log(err);
+        res.status(500).json({message:'Something went wrong', error: err})
     })
 };
 ctrl.register = function(req, res) {
+    console.log("register")
     var user = {
-        username:req.body.username.trim(),
+        username: req.body.username.trim(),
         email: req.body.email.trim().toLowerCase()
-        
     }
     var salt = getSalt();
     var hash = getHash(req.body.password, salt);
@@ -68,5 +74,30 @@ ctrl.register = function(req, res) {
         throw err;
     });
 };
+
+ctrl.update = function(req, res) {
+    console.log("update")
+    var user = {
+        username: req.body.username.trim(),
+        email: req.body.email.trim().toLowerCase()
+    }
+    var salt = getSalt();
+    var hash = getHash(req.body.password, salt);
+    user.salt = salt;
+    user.hash= hash;
+    models.User.update(user, {where: {id: req.params.id}})
+    .then(function(resp) {
+        res.json({success: true});
+    })
+    .catch(function(err) {
+        console.error(err);
+        return res.status(500).end('Update FAILED' + err.toString());
+        throw err;
+    });
+};
+
+
+
+
 
 module.exports = ctrl;
