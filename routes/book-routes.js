@@ -15,7 +15,7 @@ const Op = Sequelize.Op;
 //#dafuqamidoingwithmylife
 //#SRSLYDAFUQ
 router.post("/upload", (req, res) => {
-    const bookLink = './books/' + req.payload.id + '/' + req.query.title.trim() + ".pdf";
+    const bookLink = './books/books' + req.payload.id + '/' + req.query.title.trim() + ".pdf";
     const book = {
         title: req.query.title.trim(),
         genre: req.query.genre,
