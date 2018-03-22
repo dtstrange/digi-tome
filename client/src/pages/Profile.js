@@ -6,8 +6,9 @@ class Profile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            books: [],
+            books: null,
             title: '',
+            author: '',
             genre: '',
             description: ''
         }
@@ -18,16 +19,17 @@ class Profile extends React.Component {
         let genre = this.state.genre1;
         if (this.state.genre2) genre += ", " + this.state.genre2;
         if (this.state.genre3) genre += ", " + this.state.genre3;
+        console.log(this.props);
        
         axios({
-            url: '/api/books/search?title=' + this.state.title + '&genre' + this.state.genre + '&description=' + this.state.description,
+            url: '/api/profile/' + JSON.parse(window.atob(loginToken.split('.')[1])).username,
             method: 'get',
             headers: { "Authorization": "Bearer " + loginToken } })
             .then((resp) => {
                 console.log(resp);
                 console.log(resp.data.response);
                 this.setState({
-                    books: resp.data.response
+                    books: resp.data.PublishedBooks
                 })
                 console.log(this.state.books);
                 
@@ -39,16 +41,27 @@ class Profile extends React.Component {
 
     render() {
         console.log(this.state.books);
+        if(this.state.books) {
         var bookList = this.state.books.map(function(item) {
             return (
                 <div>
-                    <h3 class="story-title">{item.title}</h3>
-                    <h6><i>{item.genre}</i></h6>
+                    <div class="story-title-author">
+                        <h3 class="story-title">{item.title}</h3>
+                        <h5 class="story-author"><span>Author: </span></h5>
+                    </div>
+                    <h6><i>{item.genre.split(',').join(', ')}</i></h6>
                     <p>{item.description}</p>
                     <br />
                 </div>  
             )
+        
         })
+    }
+    else {
+        return <div>
+            <p>None found</p>
+            </div>
+    }
         console.log(bookList);
         
         return(
@@ -58,7 +71,6 @@ class Profile extends React.Component {
                 </div>
                 <div id="profile-stories">
                     <div className="story">
-                        <div className="story-title">
                             {bookList}                    
                         </div>
                         <div className="story-synopsis">
@@ -66,7 +78,6 @@ class Profile extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
         );
     }
 

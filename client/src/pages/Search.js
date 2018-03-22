@@ -5,8 +5,14 @@ import axios from 'axios';
 
 class Search extends React.Component {
     
-    state = {
-        results : []
+    constructor(props) {
+        super(props);
+        this.state = {
+            results: [],
+            title: '',
+            genre: '',
+            description: ''
+        }
     }
     searchBookDb = (searchParams) => {
         axios({
