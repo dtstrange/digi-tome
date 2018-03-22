@@ -1,6 +1,7 @@
 import React from 'react';
 import SignIn from './SignIn'
 import LoggedIn from './LoggedIn'
+import Searchbar from './Searchbar'
 
 console.log(SignIn, LoggedIn)
 
@@ -20,13 +21,9 @@ class Navbar extends React.Component {
                             <a className="navbar-brand" href="/">Digi-tome</a>
                         </div>
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <form className="navbar-form navbar-left" role="search">
-                                <div className="form-group">
-                                    <input type="text" className="form-control" placeholder="Search" />
-                                </div>
-                                <button type="submit" className="btn btn-default">Submit</button>
-                            </form>
+                            {(window.localStorage.getItem("token") !== null)? <Searchbar /> : "" }
                             <ul className="nav navbar-nav navbar-right">
+
                                 <li className="nav-item active">
                                     <a className="nav-link" href="/search">Search</a>
                                 </li>
@@ -36,7 +33,8 @@ class Navbar extends React.Component {
                                 <li className="nav-item active">
                                     <a className="nav-link" href="/profile">Profile</a>
                                 </li>
-                                { (window.localStorage.getItem("token") != null) ? <LoggedIn /> : <SignIn />}
+                                { (window.localStorage.getItem("token") !== null) ? <LoggedIn /> : <SignIn />}
+
                             </ul>
                         </div>
                     </div>

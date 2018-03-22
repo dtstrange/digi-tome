@@ -34,9 +34,9 @@ class App extends Component {
              
           <Switch>
             <Route exact path="/" component={Login} />
-            <Route exact path="/search" component={Search} />
+            <PrivateRoute exact path="/search" component={Search} />
             <PrivateRoute exact path="/profile" component={Profile} />
-            <Route exact path="/profile/:username" component={Profile} />
+            <PrivateRoute exact path="/profile/:username" component={Profile} />
             <PrivateRoute exact path="/upload" component={Upload} />
             <PrivateRoute exact path="/book/:id" component={Book} />
           </Switch>

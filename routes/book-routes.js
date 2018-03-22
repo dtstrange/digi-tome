@@ -27,7 +27,7 @@ router.post("/upload", (req, res) => {
 
     const bookFile = req.files.bookFile;
     //apparently express-fileupload package doesn't automatically create directorys for us. yay.
-    fs.mkdir("./books/" + req.payload.id.toString(), () => {
+    fs.mkdir("./books/books" + req.payload.id.toString(), () => {
         // console.log("dir created");
         bookFile
             .mv(bookLink)
