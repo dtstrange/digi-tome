@@ -20,6 +20,8 @@ const authCtrl = require("../controller/auth/auth-ctrl.js");
 
 // });
 
+
+
 router.get("/:username", (req, res) => {
     db.User.findOne({
         where: { username: req.params.username },

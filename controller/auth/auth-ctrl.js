@@ -17,12 +17,14 @@ function generateJWT(user) {
     return jwt.sign({
         id: user.id,
         email: user.email,
+        username: user.username,
         exp: expire.getTime()/1000
     }, process.env.JWT_SECRET);
 }
 ctrl.login = function(req, res) {
     let user = req.body.user;
     let password = req.body.password;
+    console.log(user);
     models.User.findOne({where: {
         [Op.or]: [{
             email: user

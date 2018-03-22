@@ -48,7 +48,7 @@ class Upload extends React.Component {
         return (
             <div id="main">
                 <h5>Upload your stories here</h5>
-                <form encType="multipart/form-data">
+                <form id="upload-form" encType="multipart/form-data">
                     <label htmlFor="title">Title:</label>
                     <input onChange={this.onChangeHandler} name="title" id="upload-title" type="text" />
                     <br />
