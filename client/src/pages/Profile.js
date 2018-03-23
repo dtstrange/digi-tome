@@ -1,12 +1,15 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import axios from 'axios'
-import UserChange from '../components/UserChange.js'
+import Button from './Button'
+import ProfileChange from '../components/ProfileChange.js'
 import UserIcon from '../images/user.png';
 
 class Profile extends React.Component {
 
     constructor(props) {
         super(props);
+        this.handleClick = this.handleClick.bind(this);
         this.state = {
             books: null,
             bookCount: 0,
@@ -14,8 +17,11 @@ class Profile extends React.Component {
             title: '',
             author: '',
             genre: '',
-            description: ''
-        }
+            description: '',
+            profileChange: false
+        };
+
+        
     }
     
     componentDidMount() {
@@ -39,7 +45,21 @@ class Profile extends React.Component {
             })
     }
 
+    handleClick() {
+        this.setState({
+            profileChange: true
+        })
+    }
+
     render() {
+        const profileChange = this.state.profileChange;
+
+        const button = profileChange ? (
+            <Button onClick={this.handleClick} />
+        ) : (
+            <ProfileChange onClick={this.handleClick} />
+        )
+
         var username = this.state.username;
         if(this.state.books) {
         var bookList = this.state.books.map(function(item, i) {
@@ -71,7 +91,8 @@ class Profile extends React.Component {
                         <img alt="change-user" id="user-change" src={UserIcon} />
                     </h5>
                     <h6><span>Books Published: </span>{this.state.bookCount}</h6>
-                    <UserChange />
+                    {button}
+                  
                 </div>
                 
                 <div id="profile-stories">
