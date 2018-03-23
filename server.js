@@ -24,7 +24,7 @@ const isDev = process.env.NODE_ENV === 'development';
 app.use(fileUpload())
 // Requiring our models for syncing
 const db = require(path.join(__dirname, '/models'));
-app.use(express.static(process.cwd() + '/build'));
+app.use(express.static(path.join(__dirname, '/build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
@@ -33,7 +33,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 //routes
 app.get("*", (req, res)=>{
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+    res.sendFile("./client/build/index.html")
 })
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
