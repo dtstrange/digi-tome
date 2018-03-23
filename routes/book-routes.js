@@ -15,11 +15,10 @@ const Op = Sequelize.Op;
 //#dafuqamidoingwithmylife
 //#SRSLYDAFUQ
 router.post("/upload", (req, res) => {
-    const bookLink = './books/' + req.payload.id + '/' + req.query.title.trim() + ".pdf";
+    const bookLink = '/books/' + req.payload.id + '/' + req.query.title.trim() + ".pdf";
     const book = {
         title: req.query.title.trim(),
         genre: req.query.genre,
-        price: req.query.price.trim(),
         description: req.query.description,
         link: bookLink,
         UserId: req.payload.id
@@ -27,7 +26,7 @@ router.post("/upload", (req, res) => {
 
     const bookFile = req.files.bookFile;
     //apparently express-fileupload package doesn't automatically create directorys for us. yay.
-    fs.mkdir("./books/" + req.payload.id.toString(), () => {
+    fs.mkdir("./books/books/" + req.payload.id.toString(), () => {
         // console.log("dir created");
         bookFile
             .mv(bookLink)
@@ -55,12 +54,15 @@ router.get("/search", (req, res) => {
     let searchParams = {
         where: {},
         attributes: {
-            exclude: ["link", "createdAt", "updatedAt", "UserId"]
+            exclude: ["createdAt", "updatedAt", "UserId"]
         },
         include: [{
             model: db.User,
             attributes: ["id", "username"]
         }]
+    }
+    if (req.query.bookId) {
+        searchParams.where.id = req.query.bookId
     }
     if (req.query.title) {
         searchParams.where.title = {

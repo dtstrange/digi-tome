@@ -32,6 +32,7 @@ class Login extends React.Component {
                 //placeholder code
                 alert("You are now logged in! Nice!");
             console.log("Hi", resp);
+            window.location = '/profile';
                
             
              })
