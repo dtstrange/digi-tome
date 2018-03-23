@@ -33,7 +33,7 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 //routes
 app.get("*", (req, res)=>{
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+    res.sendFile("/index.html")
 })
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
