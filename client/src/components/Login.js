@@ -1,6 +1,7 @@
 
 import React from 'react'
 import axios from 'axios'
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -30,6 +31,9 @@ class Login extends React.Component {
                 window.localStorage.setItem("token", resp.data.token);
                 //placeholder code
                 alert("You are now logged in! Nice!");
+            console.log("Hi", resp);
+               
+            
              })
              .catch((err) => {
                  console.error(err);

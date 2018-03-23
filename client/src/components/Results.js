@@ -4,30 +4,18 @@ import React from 'react';
 class Results extends React.Component {
     render() {
         return(
-            <div id="main">
-                <table style={{
-                    border: "1px solid white",
-                    width: "100%"
-                }}>
-                    <thead>
-                    <tr style={{border: "1px solid white"}}>
-                        <td>Title</td>
-                        <td>Genres</td>
-                        <td>Synopsis</td>
-                        <td>Author</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        {this.props.data.map((elem) => {
-                            return <tr style={{border: "1px solid white"}} key={elem.id}>
-                                <td>{elem.title}</td>
-                                <td>{elem.genre.split(',').join(', ')}</td>
-                                <td>{elem.description}</td>
-                                <td>{elem.User.username}</td>
-                            </tr>
-                        })}
-                    </tbody>
-                </table>
+            <div id="results">
+                {this.props.data.map((item) => {
+                    return <div>
+                    <div class="story-title-author">
+                        <h3 class="story-title">{item.title}</h3>
+                        <h5 class="story-author"><span>Author: </span>{item.User.username}</h5>
+                    </div>
+                    <h6><i>{item.genre.split(',').join(', ')}</i></h6>
+                    <p>{item.description}</p>
+                    <br />
+                </div>  
+                })}
             </div>
         )
     }

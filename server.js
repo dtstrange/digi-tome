@@ -33,13 +33,14 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 //routes
 app.use("/api/user", authRoutes);
-
+app.use(express.static("books"))
 app.use(jwt({
     secret: process.env.JWT_SECRET,
     userProperty: 'payload'
 }));
 app.use("/api/books", bookRoutes);
 app.use("/api/profile", profileRoute);
+
 
 //temporarily set to false to avoid losing db
 db.sequelize.sync({ force: false }).then(function () {

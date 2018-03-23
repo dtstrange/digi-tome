@@ -31,7 +31,7 @@ class SearchForm extends React.Component {
         return(
 
             <div>
-                <form>
+                <form id="search-form">
                 <label htmlFor="title">Title: </label>
                 <input type="text" name="title" onChange={this.onChangeHandler} />
                 <br />
