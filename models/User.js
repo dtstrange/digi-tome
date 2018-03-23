@@ -20,11 +20,6 @@ module.exports = function(sequelize, DataTypes) {
         salt: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        profilePic: {
-            type: DataTypes.STRING,
-            //this relative link needs to be changed
-            defaultValue: "/assets/images/defaultUser.png"
         }
     }); 
     User.associate = function(models) {

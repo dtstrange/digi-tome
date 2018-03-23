@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 const ctrl = {};
+const fs = require('fs')
 
 function getHash(password, salt) {
     return crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
@@ -66,7 +67,19 @@ ctrl.register = function(req, res) {
     user.hash= hash;
     models.User.create(user)
     .then(function(resp) {
-        res.json({success: true});
+        fs.mkdir("./public/assets/images/users/" + resp.dataValues.id, (err) => {
+            if (err) {
+                console.error(err)
+            } else {
+                fs.copyFile("./public/assets/images/defaultUser.png", "./public/assets/images/users/" + resp.dataValues.id + "/user.png", (err) => {
+                    if (err) {
+                        console.error(err)
+                    } else {
+                        res.json({success: true});
+                    }
+                })
+            }
+        })
     })
     .catch(function(err) {
         console.error(err);

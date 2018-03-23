@@ -19,7 +19,6 @@ router.post("/upload", (req, res) => {
     const book = {
         title: req.query.title.trim(),
         genre: req.query.genre,
-        price: req.query.price.trim(),
         description: req.query.description,
         link: bookLink,
         UserId: req.payload.id
