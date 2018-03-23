@@ -7,7 +7,11 @@ class LoggedIn extends React.Component {
 
     render() {
         return (
+<<<<<<< HEAD
             <div style={{ "paddingTop": "7.5px" }}>
+=======
+            <div>
+>>>>>>> c1e5ac34e5af0ea903ec50dce39e073cf423b739
                 {/* <ul className="dropdown-menu">
                     <li><a href="/profile">My Profile</a></li>
                     <li><a href="/upload">Upload Book...</a></li>
