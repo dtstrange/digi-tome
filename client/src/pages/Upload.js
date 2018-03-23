@@ -1,5 +1,4 @@
 import React from 'react';
-import Router from 'react-router-dom'
 import Genre from '../components/Genre.js';
 import axios from 'axios'
 
@@ -19,6 +18,7 @@ class Upload extends React.Component {
             [event.target.name]: event.target.value
         })
     }
+
     submitBook = (event) => {
         event.preventDefault();
         const loginToken = window.localStorage.getItem("token");

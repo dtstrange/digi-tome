@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import Profile from '../pages/Profile'
 
 class UserChange extends React.Component {
 

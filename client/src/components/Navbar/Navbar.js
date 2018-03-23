@@ -21,7 +21,7 @@ class Navbar extends React.Component {
                             </button>
                             <div>
                                 <a className="navbar-brand" href="/">Digi-tome</a>
-                                <img id="logo" src={Logo} />
+                                <img alt="Digitome" id="logo" src={Logo} />
                             </div>
                         </div>
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
