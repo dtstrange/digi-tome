@@ -23,7 +23,7 @@ class App extends Component {
             <PrivateRoute exact path="/profile" component={Profile} />
             <Route exact path="/profile/:username" component={Profile} />
             <PrivateRoute exact path="/upload" component={Upload} />
-            <PrivateRoute exact path="/book/:id" component={Book} />
+            <PrivateRoute exact path="/book/:bookId" component={Book} />
           </Switch>
         </div>
       </Router>

@@ -2,6 +2,9 @@ import React from 'react';
 import PDF from 'react-pdf-js';
 
 class BookWindow extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   state = {};
 
   onDocumentComplete = (pages) => {
@@ -39,6 +42,7 @@ class BookWindow extends React.Component {
       );
   }
 
+
   render() {
     let pagination = null;
     if (this.state.pages) {
@@ -47,7 +51,7 @@ class BookWindow extends React.Component {
     return (
       <div>
         <PDF
-          file="/books/1/Desert's Wrath Ch1.pdf"
+          file={this.props.file}
           onDocumentComplete={this.onDocumentComplete}
           onPageComplete={this.onPageComplete}
           page={this.state.page}
