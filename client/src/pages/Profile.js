@@ -20,16 +20,17 @@ class Profile extends React.Component {
     
     componentDidMount() {
         const loginToken = window.localStorage.getItem("token");
-       
+        let username = (this.props.match.params.username) ? this.props.match.params.username : JSON.parse(window.atob(loginToken.split('.')[1])).username;
         axios({
-            url: '/api/profile/' + JSON.parse(window.atob(loginToken.split('.')[1])).username,
+            url: '/api/profile/' + username,
             method: 'get',
             headers: { "Authorization": "Bearer " + loginToken } })
             .then((resp) => {
+                console.log(resp);
                 this.setState({
                     books: resp.data.PublishedBooks,
                     bookCount: resp.data.PublishedBooks.length,
-                    username: JSON.parse(window.atob(loginToken.split('.')[1])).username
+                    username: resp.data.username
                 })
                 
 

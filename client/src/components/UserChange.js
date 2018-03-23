@@ -17,13 +17,17 @@ class UserChange extends React.Component {
     }
 
     submitUserChange = (event) => {
+        event.preventDefault();
         const loginToken = window.localStorage.getItem("token");
+        console.log("hi");
 
         axios({
             url: '/api/profile/' + JSON.parse(window.atob(loginToken.split('.')[1])).id,
             method: 'put',
-            headers: { "Authorization": "Bearer " + loginToken } })
+            headers: { "Authorization": "Bearer " + loginToken } ,
+            data: {username: this.state.user}})
             .then((resp) => {
+                console.log("hey");
                 console.log(resp);
                 console.log(resp.data.response);
                 this.setState({
