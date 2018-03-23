@@ -32,6 +32,9 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 
 //routes
+app.get("*", (req, res)=>{
+    res.send("hello")
+})
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
 app.use(jwt({
