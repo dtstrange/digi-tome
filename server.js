@@ -24,7 +24,7 @@ const isDev = process.env.NODE_ENV === 'development';
 app.use(fileUpload())
 // Requiring our models for syncing
 const db = require(path.join(__dirname, '/models'));
-app.use(express.static(process.cwd() + '/build'));
+app.use(express.static(path.join(__dirname, '/build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
