@@ -7,19 +7,7 @@ class LoggedIn extends React.Component {
 
     render() {
         return (
-<<<<<<< HEAD
             <div style={{ "paddingTop": "7.5px" }}>
-=======
-            <div>
->>>>>>> c1e5ac34e5af0ea903ec50dce39e073cf423b739
-                {/* <ul className="dropdown-menu">
-                    <li><a href="/profile">My Profile</a></li>
-                    <li><a href="/upload">Upload Book...</a></li>
-                </ul> */}
-                {/* <div onClick={this.search} class="btn btn-default"><span class="glyphicon glyphicon-search"></span></div>
-                <div onClick={this.upload} class="btn btn-default"><span class="glyphicon glyphicon-upload"></span></div>
-                <div onClick={this.user} class="btn btn-default"><span class="glyphicon glyphicon-user"></span></div> */}
-
                 <div className="btn-group" role="group" aria-label="...">
                     <div className="btn-group" role="group">
                         <a href="/search" onClick={this.search} type="button" className="btn btn-default"><span className="glyphicon glyphicon-search"></span></a>
