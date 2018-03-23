@@ -77,14 +77,26 @@ ctrl.register = function(req, res) {
 
 ctrl.update = function(req, res) {
     console.log("update")
-    var user = {
-        username: req.body.username.trim(),
-        email: req.body.email.trim().toLowerCase()
+    let user = {}
+    // var user = {
+    //     username: req.body.username.trim(),
+    //     email: req.body.email.trim().toLowerCase()
+    // }
+    // var salt = getSalt();
+    // var hash = getHash(req.body.password, salt);
+    // user.salt = salt;
+    // user.hash= hash;
+    if (req.body.username) {
+        user.username = req.body.username.trim();
     }
-    var salt = getSalt();
-    var hash = getHash(req.body.password, salt);
-    user.salt = salt;
-    user.hash= hash;
+    if(req.body.email){
+        user.email= req.body.email.trim().toLowerCase()
+    }
+    if(req.body.password){
+        user.salt = getSalt();
+        user.hash= getHash(req.body.password, user.salt);
+    }
+    console.log(user);
     models.User.update(user, {where: {id: req.params.id}})
     .then(function(resp) {
         res.json({success: true});
