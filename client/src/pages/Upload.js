@@ -7,7 +7,6 @@ class Upload extends React.Component {
 
     state = {
         title: '',
-        price: '',
         description: '',
         genre1: '',
         genre2: '',
@@ -36,7 +35,7 @@ class Upload extends React.Component {
         if (this.state.genre3) genre += "," + this.state.genre3;
         data.append("bookFile", document.getElementById("pdf-file").files[0])
         //:title/:genre/:description/:userId/:price
-        axios.post('/api/books/upload?title=' + this.state.title + "&genre=" + genre + "&description=" + this.state.description + "&price=" + this.state.bookPrice, data, { headers: { "Authorization": "Bearer " + loginToken } })
+        axios.post('/api/books/upload?title=' + this.state.title + "&genre=" + genre + "&description=" + this.state.description, data, { headers: { "Authorization": "Bearer " + loginToken } })
             .then((data) => {
                 console.log(data)
             }).catch((error) => {
@@ -47,8 +46,8 @@ class Upload extends React.Component {
     render() {
         return (
             <div id="main">
-                <h5>Upload your stories here</h5>
                 <form id="upload-form" encType="multipart/form-data">
+                    <h3>Upload a Book</h3>
                     <label htmlFor="title">Title:</label>
                     <input onChange={this.onChangeHandler} name="title" id="upload-title" type="text" />
                     <br />
@@ -58,9 +57,6 @@ class Upload extends React.Component {
                     <br />
                     <label htmlFor="description">Synopsis:</label>
                     <input onChange={this.onChangeHandler} name="description" id="upload-synopsis" type="text" />
-                    <br />
-                    <label htmlFor="bookPrice">Price: </label>
-                    <input onChange={this.onChangeHandler} name="bookPrice" type="number" min="0" step="0.01" />
                     <br />
                     <label htmlFor="bookFile">Select PDF:</label>
                     <input name="bookFile" onChange={this.onChangeHandler} id="pdf-file" type="file" />
