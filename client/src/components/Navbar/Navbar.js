@@ -23,18 +23,7 @@ class Navbar extends React.Component {
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             {(window.localStorage.getItem("token") !== null)? <Searchbar /> : "" }
                             <ul className="nav navbar-nav navbar-right">
-
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="/search">Search</a>
-                                </li>
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="/upload">Upload</a>
-                                </li>
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="/profile">Profile</a>
-                                </li>
                                 { (window.localStorage.getItem("token") !== null) ? <LoggedIn /> : <SignIn />}
-
                             </ul>
                         </div>
                     </div>
