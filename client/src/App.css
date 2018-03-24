@@ -151,18 +151,19 @@ form select {
     float: right;
 }
 
-.login-form input {
-    float: right;
-}
-
 .login-form .btn.btn-primary {
     float: left;
+}
+
+.login-form input[type="submit"] {
+    float: right;
+    margin-top: 0;
 }
 
 #search-form {
     position: relative;
     background: #fff;
-    width: 30%;
+    width: 35%;
     border: 1px solid #181763;
     box-shadow: 1px 1px 10px 0px #7b7b7b
 }
@@ -177,7 +178,7 @@ form select {
 
 img#logo {
     width: 40px;
-    margin-top: 10%;
+    margin: 8% 0;
 }
 
 img#user-change {
@@ -194,6 +195,7 @@ h3.story-title {
 
 #upload-form {
     position: relative;
+    width: 35%;
     background: #fff;
     border: 1px solid #181763;
     box-shadow: 1px 1px 10px 0px #7b7b7b
@@ -235,8 +237,20 @@ canvas{ display: block; vertical-align: bottom; }
 
 @media (max-width: 767px) {
     
+    img#logo {
+        margin: 2% 0;
+    }
+    canvas.undefined {
+        width: 85% !important;
+        height: auto !important;
+    }
+    
     form, .login-form {
         width: 90%;
+    }
+
+    #search-form, #upload-form {
+        width: 50%;
     }
 
 }
