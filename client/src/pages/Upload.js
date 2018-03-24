@@ -3,7 +3,9 @@ import Genre from '../components/Genre.js';
 import axios from 'axios'
 
 class Upload extends React.Component {
-
+    constructor(props) {
+        super(props);
+    }
     state = {
         title: '',
         description: '',
@@ -22,14 +24,6 @@ class Upload extends React.Component {
         event.preventDefault();
         const loginToken = window.localStorage.getItem("token");
         let data = new FormData();
-        // if (!this.state.genre1 ||
-        //     !this.state.title ||
-        //     !this.state.price ||
-        //     !(document.getElementById("pdf-file").files[0])) {
-        //     alert("Missing required information")
-        //     //would like to show this in a modal
-        //     return false;
-        // }
         let genre = this.state.genre1;
         if (this.state.genre2) genre += "," + this.state.genre2;
         if (this.state.genre3) genre += "," + this.state.genre3;
@@ -38,7 +32,8 @@ class Upload extends React.Component {
         axios.post('/api/books/upload?title=' + this.state.title + "&genre=" + genre + "&description=" + this.state.description, data, { headers: { "Authorization": "Bearer " + loginToken } })
             .then((data) => {
                 console.log(data);
-                window.location = '/profile';
+                // window.location = '/profile';
+                this.props.history.push("/profile");
             }).catch((error) => {
                 console.error(error);
             })
@@ -60,9 +55,9 @@ class Upload extends React.Component {
                     <input onChange={this.onChangeHandler} name="description" id="upload-synopsis" type="text" />
                     <br />
                     <label htmlFor="bookFile">Select PDF:</label>
-                    <input name="bookFile" onChange={this.onChangeHandler} id="pdf-file" type="file" />
+                    <input name="bookFile" onChange={this.onChangeHandler} accept=".pdf" id="pdf-file" type="file" />
                     <br />
-                    <input onClick={this.submitBook} className="submit" type="submit" value="Submit" />                    
+                    <input onClick={this.submitBook} className="submit btn btn-default" type="submit" value="Submit" />                    
                 </form>
             </div>
         );

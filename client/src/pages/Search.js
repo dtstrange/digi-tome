@@ -4,7 +4,7 @@ import Results from '../components/Results';
 import axios from 'axios';
 
 class Search extends React.Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
@@ -29,11 +29,21 @@ class Search extends React.Component {
             console.error(err)
         })
     }
+
+    componentDidMount() {
+        console.log(this.props);
+        if (this.props.location.search) {
+            const urlParams = new URLSearchParams(this.props.location.search)
+            const title = urlParams.get("title")
+            this.searchBookDb("?title=" + urlParams.get("title"))
+        }
+    }
+
     render() {
-        return(
+        return (
             <div>
-                <SearchForm searchFunc={this.searchBookDb}/>
-                { (this.state.results[0]) ? <Results data={this.state.results} /> : "" }
+                <SearchForm searchFunc={this.searchBookDb} />
+                {(this.state.results[0]) ? <Results data={this.state.results} /> : ""}
             </div>
         );
     }
