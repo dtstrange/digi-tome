@@ -34,9 +34,9 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 //   });
-// app.get("*", (req, res)=>{
-//     res.sendFile("./client/build/index.html")
-// })
+app.get("*", (req, res)=>{
+    res.sendFile("./client/build/index.html")
+})
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
 app.use(jwt({
