@@ -32,14 +32,14 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 //routes
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "http://digi-tome.herokuapp.com");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
-app.get("*", (req, res)=>{
-    res.sendFile("./client/public/index.html")
-})
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "http://digi-tome.herokuapp.com");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
+// app.get("*", (req, res)=>{
+//     res.sendFile("./client/public/index.html")
+// })
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
 app.use(jwt({
@@ -49,7 +49,7 @@ app.use(jwt({
 app.use("/api/books", bookRoutes);
 app.use("/api/profile", profileRoute);
 
-db.sequelize.sync({ force: false }).then(function () {
+db.sequelize.sync({ force: isDev }).then(function () {
     app.listen(PORT, function () {
         console.log("App listening on PORT " + PORT);
     })
