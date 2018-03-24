@@ -38,7 +38,8 @@ if (process.env.NODE_ENV === 'production') {
 //     next();
 //   });
 // app.get("*", (req, res)=>{
-//     res.sendFile("./client/build/index.html")
+//     // res.sendFile("./client/public/index.html")
+    
 // })
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
