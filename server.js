@@ -21,7 +21,6 @@ const isDev = process.env.NODE_ENV === 'development';
 app.use(fileUpload())
 // Requiring our models for syncing
 const db = require(path.join(__dirname, '/models'));
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
@@ -30,6 +29,8 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 }
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 //routes
 // app.use((req, res, next) => {
