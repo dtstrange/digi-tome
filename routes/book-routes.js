@@ -26,28 +26,32 @@ router.post("/upload", (req, res) => {
 
     const bookFile = req.files.bookFile;
     //apparently express-fileupload package doesn't automatically create directorys for us. yay.
-    fs.mkdir("./books/books/" + req.payload.id.toString(), () => {
-        const bookPath = './books/books/' + req.payload.id + '/' + req.query.title.trim() + ".pdf";
-        // console.log("dir created");
-        bookFile
-            .mv(bookPath)
-            .then((response) => {
-                // console.log("file saved");
-                db.PublishedBooks
-                    .create(book)
-                    .then((resp) => {
-                        // console.log("book saved to DB");
-                        res.status(200).json({ message: "Upload successful!" });
-                    })
-                    .catch((err) => {
-                        console.error(err);
-                        res.status(500).json({ message: "Internal server error.", error: err });
-                    })
-            })
-            .catch((err) => {
-                console.error(err);
-                res.status(500).json({ message: "Internal server error.", error: err });
-            })
+    fs.mkdir("./books/books/" + req.payload.id.toString(), (err) => {
+        if ((err) && (err.code !== 'EEXIST')) {
+            console.error(err)
+        } else {
+            const bookPath = './books/books/' + req.payload.id + '/' + req.query.title.trim() + ".pdf";
+            // console.log("dir created");
+            bookFile
+                .mv(bookPath)
+                .then((response) => {
+                    // console.log("file saved");
+                    db.PublishedBooks
+                        .create(book)
+                        .then((resp) => {
+                            // console.log("book saved to DB");
+                            res.status(200).json({ message: "Upload successful!" });
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                            res.status(500).json({ message: "Internal server error.", error: err });
+                        })
+                })
+                .catch((err) => {
+                    console.error(err);
+                    res.status(500).json({ message: "Internal server error.", error: err });
+                })
+        }
     })
 });
 

@@ -68,14 +68,14 @@ ctrl.register = function(req, res) {
     models.User.create(user)
     .then(function(resp) {
         fs.mkdir("./public/assets/images/users/" + resp.dataValues.id, (err) => {
-            if (err) {
+            if ((err) && (err.code !== 'EEXIST')) {
                 console.error(err)
             } else {
                 fs.copyFile("./public/assets/images/defaultUser.png", "./public/assets/images/users/" + resp.dataValues.id + "/user.png", (err) => {
                     if (err) {
                         console.error(err)
                     } else {
-                        res.json({success: true});
+                        res.json({success: true, token: generateJWT(resp)});
                     }
                 })
             }
@@ -91,28 +91,23 @@ ctrl.register = function(req, res) {
 ctrl.update = function(req, res) {
     console.log("update")
     let user = {}
-    // var user = {
-    //     username: req.body.username.trim(),
-    //     email: req.body.email.trim().toLowerCase()
-    // }
-    // var salt = getSalt();
-    // var hash = getHash(req.body.password, salt);
-    // user.salt = salt;
-    // user.hash= hash;
-    if (req.body.username) {
-        user.username = req.body.username.trim();
+    if (req.query.username) {
+        user.username = req.query.username.trim();
     }
-    if(req.body.email){
-        user.email= req.body.email.trim().toLowerCase()
+    if(req.query.email){
+        user.email= req.query.email.trim().toLowerCase()
     }
-    if(req.body.password){
+    if(req.query.password){
         user.salt = getSalt();
-        user.hash= getHash(req.body.password, user.salt);
+        user.hash= getHash(req.query.password, user.salt);
     }
     console.log(user);
     models.User.update(user, {where: {id: req.params.id}})
     .then(function(resp) {
         res.json({success: true});
+        if ((req.files) && (req.files.picFile)) {
+            req.files.picFile.mv("./public/assets/images/users/" + req.payload.id + "/user.png")
+        }
     })
     .catch(function(err) {
         console.error(err);
