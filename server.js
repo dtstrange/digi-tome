@@ -35,7 +35,7 @@ app.use((req, res, next) => {
     next();
   });
 app.get("*", (req, res)=>{
-    res.sendFile("./client/build/index.html")
+    res.sendFile("./client/public/index.html")
 })
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
