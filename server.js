@@ -37,10 +37,10 @@ if (process.env.NODE_ENV === 'production') {
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 //   });
-app.get("*", (req, res)=>{
-    // res.sendFile("./client/public/index.html")
-    res.send("Hello");
-})
+// app.get("*", (req, res)=>{
+//     // res.sendFile("./client/public/index.html")
+    
+// })
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
 app.use(jwt({
