@@ -41,7 +41,7 @@ class Upload extends React.Component {
 
     render() {
         return (
-            <div id="main">
+            
                 <form id="upload-form" encType="multipart/form-data">
                     <h3>Upload a Book</h3>
                     <label htmlFor="title">Title:</label>
@@ -59,7 +59,7 @@ class Upload extends React.Component {
                     <br />
                     <input onClick={this.submitBook} className="submit btn btn-default" type="submit" value="Submit" />                    
                 </form>
-            </div>
+            
         );
     }
 }
