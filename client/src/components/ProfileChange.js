@@ -58,6 +58,7 @@ class ProfileChange extends React.Component {
             }).catch((error) => {
                 console.error(error);
             })
+            window.location = '/profile';
 
     }
 
@@ -71,7 +72,7 @@ class ProfileChange extends React.Component {
                         <input onChange={this.onChangeHandler} name="username" type="text" />
                         <label htmlFor="password">Change Password</label>
                         <input onChange={this.onChangeHandler} name="password" type="text" />
-                        <input name="userPic" onChange={this.onChangeHandler} accept=".png" id="pic-file" type="file" />
+                        <input htmlFor="pic-file" name="userPic" onChange={this.onChangeHandler} accept=".png" id="pic-file" type="file" />
                         <input onClick={this.submitUserChange} type="submit" type="submit" value="submit" />
                     </form>
                 </div>
