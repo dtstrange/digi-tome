@@ -39,6 +39,10 @@ nav .form-control {
   color: #181763;
 }
 
+.img-responsive.text-center {
+    height: auto !important;
+}
+
 /* Body */
 #main {
     width: 80%;
