@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0091573f01d3584ad1de2a0bb03ab6ab016cab19
 // requirements
 require("dotenv").config();
 const express = require("express");
@@ -22,7 +25,7 @@ const isDev = process.env.NODE_ENV === 'development';
 app.use(fileUpload())
 // Requiring our models for syncing
 const db = require(path.join(__dirname, '/models'));
-app.use(express.static(process.cwd() + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
@@ -30,6 +33,14 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 
 //routes
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "http://digi-tome.herokuapp.com");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+//   });
+// app.get("*", (req, res)=>{
+//     res.sendFile("./client/build/index.html")
+// })
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
 app.use(jwt({
