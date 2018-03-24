@@ -37,7 +37,8 @@ class Upload extends React.Component {
         //:title/:genre/:description/:userId/:price
         axios.post('/api/books/upload?title=' + this.state.title + "&genre=" + genre + "&description=" + this.state.description, data, { headers: { "Authorization": "Bearer " + loginToken } })
             .then((data) => {
-                console.log(data)
+                console.log(data);
+                window.location = '/profile';
             }).catch((error) => {
                 console.error(error);
             })

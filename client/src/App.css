@@ -207,6 +207,10 @@ canvas {
     box-shadow: 1px 1px 10px 0px #7b7b7b;
 }
 
+nav#prev-next {
+    position: relative;
+}
+
 
 /* Particles */
 
