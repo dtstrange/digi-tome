@@ -1,8 +1,10 @@
 import React from 'react';
 import SignIn from './SignIn'
 import LoggedIn from './LoggedIn'
+import Searchbar from './Searchbar'
+import Logo from '../../images/digi-tome.jpg'
 
-console.log(SignIn, LoggedIn)
+console.log(SignIn, LoggedIn);
 
 class Navbar extends React.Component {
     render() {
@@ -17,26 +19,15 @@ class Navbar extends React.Component {
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                             </button>
-                            <a className="navbar-brand" href="/">Digi-tome</a>
+                            <div>
+                                <a className="navbar-brand" href="/">Digi-tome</a>
+                                <img alt="Digitome" id="logo" src={Logo} />
+                            </div>
                         </div>
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <form className="navbar-form navbar-left" role="search">
-                                <div className="form-group">
-                                    <input type="text" className="form-control" placeholder="Search" />
-                                </div>
-                                <button type="submit" className="btn btn-default">Submit</button>
-                            </form>
+                            {(window.localStorage.getItem("token") !== null)? <Searchbar /> : "" }
                             <ul className="nav navbar-nav navbar-right">
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="/search">Search</a>
-                                </li>
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="/upload">Upload</a>
-                                </li>
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="/profile">Profile</a>
-                                </li>
-                                { (window.localStorage.getItem("token") != null) ? <LoggedIn /> : <SignIn />}
+                                { (window.localStorage.getItem("token") !== null) ? <LoggedIn /> : <SignIn />}
                             </ul>
                         </div>
                     </div>

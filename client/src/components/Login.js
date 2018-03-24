@@ -23,21 +23,17 @@ class Login extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         axios.post("/api/user/login",
-                   {
-                       user: this.state.user,
-                       password: this.state.password
-                   })
-             .then((resp) => {
+            {
+                user: this.state.user,
+                password: this.state.password
+            })
+            .then((resp) => {
                 window.localStorage.setItem("token", resp.data.token);
-                //placeholder code
-                alert("You are now logged in! Nice!");
-            console.log("Hi", resp);
-               
-            
-             })
-             .catch((err) => {
-                 console.error(err);
-             })
+                window.location = '/profile';
+            })
+            .catch((err) => {
+                console.error(err);
+            })
     }
 
     render() {
@@ -52,7 +48,7 @@ class Login extends React.Component {
                     Password:
                     <input name="password" type="password" value={this.state.value} onChange={this.handleChange} />
                 </label><br />
-                <input className="submit" type="submit" value="Submit" />
+                <input className="submit btn btn-default" type="submit" value="Submit" />
                 <button className="btn btn-primary" onClick={this.props.changeForm}>Sign Up!</button>
             </form>
         );

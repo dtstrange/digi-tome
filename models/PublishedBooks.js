@@ -8,10 +8,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        price: {
-            type: DataTypes.FLOAT,
-            allowNull: false
-        },
         description: {
             type: DataTypes.STRING
         },
@@ -26,8 +22,6 @@ module.exports = function(sequelize, DataTypes) {
                 allowNull: false
             }
         });
-
-        models.PublishedBooks.hasOne(models.PurchasedBooks);
     };
     return PublishedBooks; 
   };

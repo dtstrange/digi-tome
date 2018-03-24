@@ -32,8 +32,8 @@ class Signup extends React.Component {
                         password: this.state.password
                     })
                 .then((resp) => {
-                    //placeholder code
-                    alert("You are now signed up! Nice!")
+                    window.localStorage.setItem("token", resp.data.token);
+                    window.location = '/profile';
                 })
                 .catch((err) => {
                     console.error(err);
@@ -63,7 +63,7 @@ class Signup extends React.Component {
                     Password:
                     <input name="confirmpw" type="password" value={this.state.confirmpw} onChange={this.handleChange} />
                 </label><br />
-                <input className="submit" type="submit" value="Submit" />
+                <input className="submit btn btn-default" type="submit" value="Submit" />
                 <button className="btn btn-primary" onClick={this.props.changeForm}>Login with existing account.</button>
             </form>
         );

@@ -1,13 +1,13 @@
 import React from 'react';
-import Router from 'react-router-dom'
 import Genre from '../components/Genre.js';
 import axios from 'axios'
 
 class Upload extends React.Component {
-
+    constructor(props) {
+        super(props);
+    }
     state = {
         title: '',
-        price: '',
         description: '',
         genre1: '',
         genre2: '',
@@ -19,26 +19,21 @@ class Upload extends React.Component {
             [event.target.name]: event.target.value
         })
     }
+
     submitBook = (event) => {
         event.preventDefault();
         const loginToken = window.localStorage.getItem("token");
         let data = new FormData();
-        // if (!this.state.genre1 ||
-        //     !this.state.title ||
-        //     !this.state.price ||
-        //     !(document.getElementById("pdf-file").files[0])) {
-        //     alert("Missing required information")
-        //     //would like to show this in a modal
-        //     return false;
-        // }
         let genre = this.state.genre1;
         if (this.state.genre2) genre += "," + this.state.genre2;
         if (this.state.genre3) genre += "," + this.state.genre3;
         data.append("bookFile", document.getElementById("pdf-file").files[0])
         //:title/:genre/:description/:userId/:price
-        axios.post('/api/books/upload?title=' + this.state.title + "&genre=" + genre + "&description=" + this.state.description + "&price=" + this.state.bookPrice, data, { headers: { "Authorization": "Bearer " + loginToken } })
+        axios.post('/api/books/upload?title=' + this.state.title + "&genre=" + genre + "&description=" + this.state.description, data, { headers: { "Authorization": "Bearer " + loginToken } })
             .then((data) => {
-                console.log(data)
+                console.log(data);
+                // window.location = '/profile';
+                this.props.history.push("/profile");
             }).catch((error) => {
                 console.error(error);
             })
@@ -47,8 +42,8 @@ class Upload extends React.Component {
     render() {
         return (
             <div id="main">
-                <h5>Upload your stories here</h5>
                 <form id="upload-form" encType="multipart/form-data">
+                    <h3>Upload a Book</h3>
                     <label htmlFor="title">Title:</label>
                     <input onChange={this.onChangeHandler} name="title" id="upload-title" type="text" />
                     <br />
@@ -59,13 +54,10 @@ class Upload extends React.Component {
                     <label htmlFor="description">Synopsis:</label>
                     <input onChange={this.onChangeHandler} name="description" id="upload-synopsis" type="text" />
                     <br />
-                    <label htmlFor="bookPrice">Price: </label>
-                    <input onChange={this.onChangeHandler} name="bookPrice" type="number" min="0" step="0.01" />
-                    <br />
                     <label htmlFor="bookFile">Select PDF:</label>
-                    <input name="bookFile" onChange={this.onChangeHandler} id="pdf-file" type="file" />
+                    <input name="bookFile" onChange={this.onChangeHandler} accept=".pdf" id="pdf-file" type="file" />
                     <br />
-                    <input onClick={this.submitBook} className="submit" type="submit" value="Submit" />                    
+                    <input onClick={this.submitBook} className="submit btn btn-default" type="submit" value="Submit" />                    
                 </form>
             </div>
         );
