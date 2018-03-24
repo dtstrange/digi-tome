@@ -27,6 +27,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+}
 
 //routes
 app.use((req, res, next) => {
@@ -46,8 +49,6 @@ app.use(jwt({
 app.use("/api/books", bookRoutes);
 app.use("/api/profile", profileRoute);
 
-
-//temporarily set to false to avoid losing db
 db.sequelize.sync({ force: false }).then(function () {
     app.listen(PORT, function () {
         console.log("App listening on PORT " + PORT);

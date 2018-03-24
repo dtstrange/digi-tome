@@ -33,7 +33,7 @@ class BookWindow extends React.Component {
       nextButton = <li className="next disabled"><a href="#">Next <i className="fa fa-arrow-right"></i></a></li>;
     }
     return (
-      <nav>
+      <nav id="prev-next">
         <ul className="pager">
           {previousButton}
           {nextButton}

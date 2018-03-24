@@ -1,7 +1,9 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
+import { Link } from 'react-router-dom';
 import axios from 'axios'
-import UserChange from '../components/UserChange.js'
-import UserIcon from '../images/user.png';
+import ProfileChange from '../components/ProfileChange.js'
+import UserIcon from '../images/user.png'
 
 class Profile extends React.Component {
 
@@ -14,30 +16,33 @@ class Profile extends React.Component {
             title: '',
             author: '',
             genre: '',
-            description: ''
+            description: '',
+            profileChange: false
         }
     }
-    
+
+    handleClick = () => {
+        this.setState({
+            profileChange: !(this.state.profileChange)
+        })
+    }
+
     componentDidMount() {
         const loginToken = window.localStorage.getItem("token");
-        let genre = this.state.genre1;
-        if (this.state.genre2) genre += ", " + this.state.genre2;
-        if (this.state.genre3) genre += ", " + this.state.genre3;
-        console.log(this.props);
-       
+        let username = (this.props.match.params.username) ? this.props.match.params.username : JSON.parse(window.atob(loginToken.split('.')[1])).username;
         axios({
-            url: '/api/profile/' + JSON.parse(window.atob(loginToken.split('.')[1])).username,
+            url: '/api/profile/' + username,
             method: 'get',
-            headers: { "Authorization": "Bearer " + loginToken } })
+            headers: { "Authorization": "Bearer " + loginToken }
+        })
             .then((resp) => {
                 console.log(resp);
-                console.log(resp.data.response);
                 this.setState({
                     books: resp.data.PublishedBooks,
                     bookCount: resp.data.PublishedBooks.length,
-                    username: JSON.parse(window.atob(loginToken.split('.')[1])).username
+                    username: resp.data.username
                 })
-                
+
 
             }).catch((error) => {
                 console.error(error);
@@ -45,59 +50,74 @@ class Profile extends React.Component {
     }
 
     render() {
-        console.log(this.state.books);
+        const profileChange = this.state.profileChange;
+
         var username = this.state.username;
-        if(this.state.books) {
-        var bookList = this.state.books.map(function(item) {
-            console.log(item);
-            return (
-                <div>
-                    <div className="story-title-author">
-                        <h3 className="story-title">{item.title}</h3>
-                        <h5 className="story-author"><span>Author: </span>{username}</h5>
+        if (this.state.books) {
+            var bookList = this.state.books.map(function (item, i) {
+                console.log(item);
+                return (
+                    <div key={i}>
+                        <div className="story-title-author">
+                            <Link to={'./book/' + item.id} activeClassName="active">
+                                <h3 className="story-title">{item.title}</h3>
+                            </Link>
+                            <h5 className="story-author"><span>Author: </span>{username}</h5>
+                        </div>
+                        <h6><i>{item.genre.split(',').join(', ')}</i></h6>
+                        <p>{item.description}</p>
+                        <br />
                     </div>
-                    <h6><i>{item.genre.split(',').join(', ')}</i></h6>
-                    <p>{item.description}</p>
-                    <br />
-                </div>  
-            )
-        
-        })
-    }
-    else {
-        return <div>
-            <p>None found</p>
+                )
+
+            })
+        }
+        else {
+            return <div>
+                <p>None found</p>
             </div>
-    }
-        console.log(bookList);
-        
-        return(
+        }
+        const loginToken = window.localStorage.getItem("token");
+        return (
             <div>
-                <div id="my-profile">
+                <div className="text-center" id="my-profile">
                     <h2 id="my-profile-header">My Profile</h2>
-                    <h5><span>Username: </span>{this.state.username}  
-                        <img id="user-change" src={UserIcon} />
+                    <img style={{width: 200, height: 200, margin: "0 auto"}} className="img-responsive text-center" src={"/assets/images/users/" + JSON.parse(window.atob(loginToken.split('.')[1])).id + "/user.png"} />
+                    <h5><span>Username: </span>{this.state.username}
+                    {!(this.props.match.params.username) 
+                        ? <img onClick={this.handleClick} alt="change-user" id="user-change" src={UserIcon} />  
+                        : null
+                    }
                     </h5>
                     <h6><span>Books Published: </span>{this.state.bookCount}</h6>
-                    <UserChange />
+                    {/* {!(this.props.match.params.username) 
+                        ? <button className="btn btn-default" onClick={this.handleClick}>Change Info</button> 
+                        : null
+                    } */}
+                    {/* checking if profileChange is true and whether a url param username does not exist */}
+                    {(this.state.profileChange) && !(this.props.match.params.username) 
+                        ? <ProfileChange />
+                        : null
+                    }
+
                 </div>
-                
+
                 <div id="profile-stories">
                     <div id="profile-stories-header">
                         <h2>Published Books</h2>
                     </div>
                     <div className="story">
-                            {bookList}                    
-                        </div>
-                        <div className="story-synopsis">
-                           <p></p>
-                        </div>
+                        {bookList}
+                    </div>
+                    <div className="story-synopsis">
+                        <p></p>
                     </div>
                 </div>
+            </div>
         );
     }
 
 }
-    
+
 
 export default Profile;
