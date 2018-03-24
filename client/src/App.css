@@ -163,8 +163,8 @@ form select {
     box-shadow: 1px 1px 10px 0px #7b7b7b
 }
 
-#user-change-form {
-    width: 50%;
+#profile-change-form {
+    width: 100%;
     z-index: 10;
     text-align: center;
 }
@@ -181,6 +181,11 @@ img#user-change {
     opacity: 0.8;
 }
 
+h3.story-title {
+    color: #4745b5;
+    text-shadow: 1px 1px 1px #aaa9e4;
+}
+
 /* Upload */
 
 #upload-form {
@@ -192,6 +197,18 @@ img#user-change {
 
 #pdf-file {
   color: #dedede;
+}
+
+canvas {
+    position: relative;
+    margin: 0 auto;
+    border: 1px solid #181763;
+    -webkit-box-shadow: 1px 1px 10px 0px #7b7b7b;
+    box-shadow: 1px 1px 10px 0px #7b7b7b;
+}
+
+nav#prev-next {
+    position: relative;
 }
 
 
