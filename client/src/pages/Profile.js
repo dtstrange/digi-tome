@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-import UserChange from '../components/UserChange.js'
-import UserIcon from '../images/user.png';
+import ProfileChange from '../components/ProfileChange.js'
+import UserIcon from '../images/user.png'
 
 class Profile extends React.Component {
 
@@ -14,8 +14,16 @@ class Profile extends React.Component {
             title: '',
             author: '',
             genre: '',
-            description: ''
+            description: '',
+            profileChange: 'false'
         }
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.setState({
+            profileChange: 'true'
+        })
     }
     
     componentDidMount() {
@@ -71,9 +79,14 @@ class Profile extends React.Component {
                         <img alt="change-user" id="user-change" src={UserIcon} />
                     </h5>
                     <h6><span>Books Published: </span>{this.state.bookCount}</h6>
-                    <UserChange />
-                </div>
+                    <button onclick={this.handleClick}>Change Info</button>  
+                    {this.state.profileChange ?
+                    <ProfileChange /> :
+                    null
+        }           
                 
+                </div>
+                             
                 <div id="profile-stories">
                     <div id="profile-stories-header">
                         <h2>Published Books</h2>

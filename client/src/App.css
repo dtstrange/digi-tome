@@ -163,8 +163,8 @@ form select {
     box-shadow: 1px 1px 10px 0px #7b7b7b
 }
 
-#user-change-form {
-    width: 50%;
+#profile-change-form {
+    width: 100%;
     z-index: 10;
     text-align: center;
 }

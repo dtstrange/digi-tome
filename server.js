@@ -1,5 +1,3 @@
-const keyPublishable = process.env.PUBLISHABLE_KEY;
-const keySecret = process.env.SECRET_KEY;
 
 // requirements
 require("dotenv").config();
