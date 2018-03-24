@@ -1,12 +1,20 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import axios from 'axios'
+<<<<<<< HEAD
 import ProfileChange from '../components/ProfileChange.js'
 import UserIcon from '../images/user.png'
+=======
+import Button from './Button'
+import ProfileChange from '../components/ProfileChange.js'
+import UserIcon from '../images/user.png';
+>>>>>>> 4761202514d2039d008090e85d99645b2feac32d
 
 class Profile extends React.Component {
 
     constructor(props) {
         super(props);
+        this.handleClick = this.handleClick.bind(this);
         this.state = {
             books: null,
             bookCount: 0,
@@ -15,6 +23,7 @@ class Profile extends React.Component {
             author: '',
             genre: '',
             description: '',
+<<<<<<< HEAD
             profileChange: 'false'
         }
         this.handleClick = this.handleClick.bind(this);
@@ -24,6 +33,12 @@ class Profile extends React.Component {
         this.setState({
             profileChange: 'true'
         })
+=======
+            profileChange: false
+        };
+
+        
+>>>>>>> 4761202514d2039d008090e85d99645b2feac32d
     }
     
     componentDidMount() {
@@ -47,7 +62,21 @@ class Profile extends React.Component {
             })
     }
 
+    handleClick() {
+        this.setState({
+            profileChange: true
+        })
+    }
+
     render() {
+        const profileChange = this.state.profileChange;
+
+        const button = profileChange ? (
+            <Button onClick={this.handleClick} />
+        ) : (
+            <ProfileChange onClick={this.handleClick} />
+        )
+
         var username = this.state.username;
         if(this.state.books) {
         var bookList = this.state.books.map(function(item, i) {
@@ -79,11 +108,17 @@ class Profile extends React.Component {
                         <img alt="change-user" id="user-change" src={UserIcon} />
                     </h5>
                     <h6><span>Books Published: </span>{this.state.bookCount}</h6>
+<<<<<<< HEAD
                     <button onclick={this.handleClick}>Change Info</button>  
                     {this.state.profileChange ?
                     <ProfileChange /> :
                     null
         }           
+=======
+                    {button}
+                  
+                </div>
+>>>>>>> 4761202514d2039d008090e85d99645b2feac32d
                 
                 </div>
                              

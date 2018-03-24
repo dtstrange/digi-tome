@@ -8,7 +8,11 @@ class ProfileChange extends React.Component {
         this.state = {
             email: '',
             username: '',
+<<<<<<< HEAD:client/src/components/ProfileChange.js
             password: ''
+=======
+            password:''
+>>>>>>> 4761202514d2039d008090e85d99645b2feac32d:client/src/components/ProfileChange.js
         }
     }
 
@@ -26,16 +30,29 @@ class ProfileChange extends React.Component {
         axios({
             url: '/api/profile/' + JSON.parse(window.atob(loginToken.split('.')[1])).id,
             method: 'put',
+<<<<<<< HEAD:client/src/components/ProfileChange.js
             headers: { "Authorization": "Bearer " + loginToken } ,
             data: {
                 email: this.state.email,
                 username: this.state.username,
                 password: this.state.password}
             })
+=======
+            headers: { "Authorization": "Bearer " + loginToken },
+            data: {
+                email: this.state.email,
+                username: this.state.username,
+                password: this.state.passsword
+            }})
+>>>>>>> 4761202514d2039d008090e85d99645b2feac32d:client/src/components/ProfileChange.js
             .then((resp) => {
-                console.log("hey");
+                console.log(JSON.parse(window.atob(loginToken.split('.')[1])).id);
                 console.log(resp);
                 console.log(resp.data.response);
+<<<<<<< HEAD:client/src/components/ProfileChange.js
+=======
+                
+>>>>>>> 4761202514d2039d008090e85d99645b2feac32d:client/src/components/ProfileChange.js
                 
 
             }).catch((error) => {
@@ -47,6 +64,7 @@ class ProfileChange extends React.Component {
     render() {
         return(
             <div>
+<<<<<<< HEAD:client/src/components/ProfileChange.js
                 <form id="profile-change-form">
                         <label htmlFor="email">Change Email</label>
                         <input onChange={this.onChangeHandler} name="email" type="text" />
@@ -54,6 +72,16 @@ class ProfileChange extends React.Component {
                         <input onChange={this.onChangeHandler} name="username" type="text" />
                         <label htmlFor="password">Change Password</label>
                         <input onChange={this.onChangeHandler} name="password" type="text" />
+=======
+                <div id="user-change-form">
+                    <form>
+                        <label htmlFor="email">Change Email:</label>
+                        <input name="email" onChange={this.onChangeHandler} type="text" />
+                        <label htmlFor="username">Change Username:</label>
+                        <input name="username" onChange={this.onChangeHandler} type="text" />
+                        <label htmlFor="password">Change Password</label>
+                        <input name="password" onChange={this.onChangeHandler} type="text" />
+>>>>>>> 4761202514d2039d008090e85d99645b2feac32d:client/src/components/ProfileChange.js
                         <input onClick={this.submitUserChange} type="submit" type="submit" value="submit" />
                     </form>
                 </div>
