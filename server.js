@@ -26,10 +26,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-// if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
-// }
-// app.use(express.static(path.join(__dirname, 'public')));
+}
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 //routes
@@ -43,11 +43,11 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
     
 // })
 app.use("/api/user", authRoutes);
-// app.use(express.static("books"))
-// app.use(jwt({
-//     secret: process.env.JWT_SECRET,
-//     userProperty: 'payload'
-// }));
+app.use(express.static("books"))
+app.use(jwt({
+    secret: process.env.JWT_SECRET,
+    userProperty: 'payload'
+}));
 app.use("/api/books", bookRoutes);
 app.use("/api/profile", profileRoute);
 
