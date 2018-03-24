@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "install": "(cd client && yarn) && (cd .. && yarn)",
+    "start": "concurrently \"cd client && PORT=3000 yarn start\" \"cd .. && PORT=3001 yarn start\""
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.2",
