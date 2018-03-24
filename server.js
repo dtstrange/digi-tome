@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 0091573f01d3584ad1de2a0bb03ab6ab016cab19
 // requirements
 require("dotenv").config();
 const express = require("express");
