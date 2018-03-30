@@ -38,9 +38,9 @@ app.use(express.static(path.join(__dirname, '')));
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 //   });
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, '/client/build/index.html'));
-//   });
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));
+  });
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
 app.use(jwt({
