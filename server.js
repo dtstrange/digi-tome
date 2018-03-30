@@ -26,10 +26,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-if (process.env.NODE_ENV === 'production') {
-   app.use(express.static('client/build'));
-}
-app.use(express.static(path.join(__dirname, '')));
+// if (process.env.NODE_ENV === 'production') {
+//    app.use(express.static('client/build'));
+// }
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 //routes
