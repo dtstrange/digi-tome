@@ -33,14 +33,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //routes
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", "http://digi-tome.herokuapp.com");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-//   });
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/client/build/index.html'));
-  });
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
 app.use(jwt({
