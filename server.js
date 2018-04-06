@@ -27,34 +27,34 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
+    app.use(express.static(path.join(process.env.PWD, 'client/build')));
     app.get('/', (req, res) => {
         res.sendFile(path.join(__dirname, '/client/build/index.html'));
-      });
-      app.get('/profile', (req, res) => {
+    });
+    app.get('/profile', (req, res) => {
         res.sendFile(path.join(__dirname, '/client/build/index.html'));
-      });
-      app.get('/profile/:username', (req, res) => {
+    });
+    app.get('/profile/:username', (req, res) => {
         res.sendFile(path.join(__dirname, '/client/build/index.html'));
-      });
-      app.get('/search', (req, res) => {
+    });
+    app.get('/search', (req, res) => {
         res.sendFile(path.join(__dirname, '/client/build/index.html'));
-      });
-      app.get('/book/:bookId', (req, res) => {
+    });
+    app.get('/book/:bookId', (req, res) => {
         res.sendFile(path.join(__dirname, '/client/build/index.html'));
-      });
-      app.get('/upload', (req, res) => {
+    });
+    app.get('/upload', (req, res) => {
         res.sendFile(path.join(__dirname, '/client/build/index.html'));
-      });
+    });
 }
 //routes
-app.use(express.static('public'));
+app.use(express.static(path.join(process.env.PWD, 'public')));
 app.use("/api/user", authRoutes);
-app.use(express.static("books"))
+app.use(express.static(path.join(process.env.PWD, 'books')));
 app.use(jwt({
-        secret: process.env.JWT_SECRET,
-        userProperty: 'payload'
-    }));
+    secret: process.env.JWT_SECRET,
+    userProperty: 'payload'
+}));
 app.use("/api/books", bookRoutes);
 app.use("/api/profile", profileRoute);
 
