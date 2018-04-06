@@ -33,11 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //routes
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", "http://digi-tome.herokuapp.com");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-//   });
+
 
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
@@ -48,9 +44,7 @@ app.use(jwt({
 app.use("/api/books", bookRoutes);
 app.use("/api/profile", profileRoute);
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/client/build/index.html'));
-  });
+
 
 db.sequelize.sync({ force: isDev }).then(function () {
     app.listen(PORT, function () {
