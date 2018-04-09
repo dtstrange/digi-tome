@@ -32,6 +32,7 @@ app.use("/api/user", authRoutes);
 app.use(express.static(path.join(__dirname, 'books')));
 
 if (process.env.NODE_ENV === 'production') {
+    console.log(__dirname, "\n", process.cwd())
     app.use(express.static(path.join(__dirname, 'client/build')));
     // app.get(['/','/profile','/profile/:username','/search','/book/:bookId','/upload'], (req, res) => {
     //     res.sendFile(path.join(__dirname, '/client/build/index.html'));
