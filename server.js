@@ -28,13 +28,29 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 if (process.env.NODE_ENV === 'production') {
    app.use(express.static('client/build'));
+   app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));     
+   })
+   app.get("/search", (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));     
+   })
+   app.get("/profile", (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));     
+   })
+   app.get("/profile/:username", (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));     
+   })
+   app.get("/upload", (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));     
+   })
+   app.get("/book/bookId", (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'));     
+   })
 }
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
 
 //routes
-
-
 app.use("/api/user", authRoutes);
 app.use(express.static("books"))
 app.use(jwt({
@@ -43,8 +59,6 @@ app.use(jwt({
 }));
 app.use("/api/books", bookRoutes);
 app.use("/api/profile", profileRoute);
-
-
 
 db.sequelize.sync({ force: isDev }).then(function () {
     app.listen(PORT, function () {
