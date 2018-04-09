@@ -27,12 +27,13 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 //routes
-app.use(express.static(path.join(__dirname, 'public')));
+process.env.PWD = process.cwd()
+app.use(express.static(path.join(process.env.PWD + '/public')));
 app.use("/api/user", authRoutes);
-app.use(express.static(path.join(__dirname, 'books')));
+app.use(express.static(path.join(process.env.PWD + '/books')));
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.use(express.static(path.join(process.env.PWD + '/client/build')));
     app.get(['/','/profile','/profile/:username','/search','/book/:bookId','/upload'], (req, res) => {
         res.sendFile(path.join(__dirname, '/client/build/index.html'));
     });
