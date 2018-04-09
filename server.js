@@ -20,7 +20,7 @@ const isDev = process.env.NODE_ENV === 'development';
 //fileupload middleware
 app.use(fileUpload())
 // Requiring our models for syncing
-const db = require(path.join(__dirname, '/models'));
+const db = require(path.join(process.env.PWD + '/models'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
@@ -35,7 +35,7 @@ app.use(express.static(path.join(process.env.PWD + '/books')));
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(process.env.PWD + '/client/build')));
     app.get(['/','/profile','/profile/:username','/search','/book/:bookId','/upload'], (req, res) => {
-        res.sendFile(path.join(__dirname, '/client/build/index.html'));
+        res.sendFile(path.join(process.env.PWD + '/client/build/index.html'));
     });
 }
 
