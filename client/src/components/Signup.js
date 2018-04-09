@@ -26,11 +26,11 @@ class Signup extends React.Component {
         event.preventDefault();
         if (this.state.password === this.state.confirmpw) {
             axios.post("/api/user/new",
-                    {
-                        email: this.state.email,
-                        username: this.state.username,
-                        password: this.state.password
-                    })
+                {
+                    email: this.state.email,
+                    username: this.state.username,
+                    password: this.state.password
+                })
                 .then((resp) => {
                     window.localStorage.setItem("token", resp.data.token);
                     window.location = '/profile';
@@ -46,25 +46,29 @@ class Signup extends React.Component {
     render() {
         return (
             <form className="login-form" onSubmit={this.handleSubmit}>
-                <h3>Digi-tome Sign Up</h3>
-                <label>
-                    Email:
+                <div className="row">
+                    <h3>Digi-tome Sign Up</h3>
+                    <label>
+                        Email:
                     <input name="email" type="text" value={this.state.email} onChange={this.handleChange} />
-                </label>
-                <label>
-                    Username:
+                    </label>
+                    <label>
+                        Username:
                     <input name="username" type="text" value={this.state.value} onChange={this.handleChange} />
-                </label>
-                <label>
-                    Password:
+                    </label>
+                    <label>
+                        Password:
                     <input name="password" type="password" value={this.state.password} onChange={this.handleChange} />
-                </label><br />
-                <label>
-                    Password:
+                    </label><br />
+                    <label>
+                        Password:
                     <input name="confirmpw" type="password" value={this.state.confirmpw} onChange={this.handleChange} />
-                </label><br />
-                <input className="submit btn btn-default" type="submit" value="Submit" />
-                <button className="btn btn-primary" onClick={this.props.changeForm}>Login with existing account.</button>
+                    </label><br />
+                </div>
+                <div className="row">
+                    <input className="submit btn btn-default" type="submit" value="Submit" />
+                    <button className="btn btn-primary" onClick={this.props.changeForm}>Login with existing account.</button>
+                </div>
             </form>
         );
     }
