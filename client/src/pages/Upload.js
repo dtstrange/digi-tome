@@ -42,21 +42,17 @@ class Upload extends React.Component {
     render() {
         return (
             
-                <form id="upload-form" encType="multipart/form-data">
+                <form style={{display: "flex", flexDirection: "column"}} className="text-center" id="upload-form" encType="multipart/form-data">
                     <h3>Upload a Book</h3>
                     <label htmlFor="title">Title:</label>
                     <input onChange={this.onChangeHandler} name="title" id="upload-title" type="text" />
-                    <br />
                     <Genre name="genre1" onChangeHandler={this.onChangeHandler} />
                     <Genre name="genre2" onChangeHandler={this.onChangeHandler} />
                     <Genre name="genre3" onChangeHandler={this.onChangeHandler} />
-                    <br />
                     <label htmlFor="description">Synopsis:</label>
                     <input onChange={this.onChangeHandler} name="description" id="upload-synopsis" type="text" />
-                    <br />
                     <label htmlFor="bookFile">Select PDF:</label>
                     <input name="bookFile" onChange={this.onChangeHandler} accept=".pdf" id="pdf-file" type="file" />
-                    <br />
                     <input onClick={this.submitBook} className="submit btn btn-default" type="submit" value="Submit" />                    
                 </form>
             

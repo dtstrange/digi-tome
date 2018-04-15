@@ -136,7 +136,7 @@ router.put("/update/:id", (req, res) => {
                 )
                 .then(function (updateResponse) {
                     if ((req.query.title) && !((req.files) && (req.files.bookFile))) { //if title was changed and no new book uploaded
-                        fs.rename(findResponse.link, book.link, function (error) {
+                        fs.rename("./books" + findResponse.link, "./books" + book.link, function (error) {
                             if (error) {
                                 res.status(500).json({ error: error, message: "Error while trying to rename file on server." })
                             }
@@ -147,7 +147,7 @@ router.put("/update/:id", (req, res) => {
                     }
                     else if (!(req.query.title) && ((req.files) && (req.files.bookFile))) {//if title was unchanged but new book uploaded
                         req.files.bookFile
-                            .mv(findResponse.link)
+                            .mv("./books" + findResponse.link)
                             .then(function (mvResponse) {
                                 res.json({ success: true });
                             })
@@ -156,13 +156,13 @@ router.put("/update/:id", (req, res) => {
                             })
                     }
                     else if ((req.query.title) && ((req.files) && (req.files.bookFile))) {//if title was changed and new book uploaded
-                        fs.rename(findResponse.link, book.link, function (error) {
+                        fs.rename("./books" + findResponse.link, "./books" + book.link, function (error) {
                             if (error) {
                                 res.status(500).json({ error: error, message: "Error while trying to rename file on server." })
                             }
                             else {
                                 req.files.bookFile
-                                    .mv(book.link)
+                                    .mv("./books" + book.link)
                                     .then(function (mvResponse) {
                                         res.json({ success: true });
                                     })
@@ -191,7 +191,7 @@ router.delete("/delete/:id", (req, res) => {
     db.PublishedBooks
         .findOne({ where: { id: req.params.id }})
         .then(function(response) {
-            fs.unlink(response.link, function(error) {
+            fs.unlink("./books" + response.link, function(error) {
                 if (error) {
                     res.status(500).json({error: error, message: "Error while trying to delete book from server." })
                 }

@@ -48,12 +48,33 @@ class Profile extends React.Component {
                 console.error(error);
             })
     }
+    deleteBook = (id) => {
+        // alert("trying to delete book id " + id);
+        if (window.confirm("Do you really want to delete this book? This is irreversible.")) {
+            axios({
+                url: '/api/books/delete/' + id,
+                method: 'delete',
+                headers: { "Authorization": "Bearer " + window.localStorage.getItem("token") }
+            })
+                .then((resp) => {
+                    window.location.reload();
+                }).catch((error) => {
+                    console.error(error);
+                })
+        }
+    }
+
+    updateBook = (book) => {
+        alert("trying to update this book \n" + book)
+        console.log(book)
+    }
 
     render() {
         const profileChange = this.state.profileChange;
 
         var username = this.state.username;
         if (this.state.books) {
+            const self = this;
             var bookList = this.state.books.map(function (item, i) {
                 console.log(item);
                 return (
@@ -62,7 +83,17 @@ class Profile extends React.Component {
                             <Link to={'./book/' + item.id} activeClassName="active">
                                 <h3 className="story-title">{item.title}</h3>
                             </Link>
-                            <h5 className="story-author"><span>Author: </span>{username}</h5>
+                            <h5 className="story-author">
+                                <span>Author: </span>{username}
+                                {!(self.props.match.params.username)
+                                    ?
+                                    <div style={{ marginLeft: "5px" }} className="btn-group" role="group">
+                                        <button onClick={() => self.updateBook(item)} type="button" className="btn btn-primary btn-xs"><span className="glyphicon glyphicon-pencil"></span></button>
+                                        <button onClick={() => self.deleteBook(item.id)} type="button" className="btn btn-primary btn-xs"><span className="glyphicon glyphicon-remove"></span></button>
+                                    </div>
+                                    : null
+                                }
+                            </h5>
                         </div>
                         <h6><i>{item.genre.split(',').join(', ')}</i></h6>
                         <p>{item.description}</p>
@@ -82,12 +113,12 @@ class Profile extends React.Component {
             <div>
                 <div className="text-center" id="my-profile">
                     <h2 id="my-profile-header">My Profile</h2>
-                    <img style={{width: 200, height: 200, margin: "0 auto"}} className="img-responsive text-center" src={"/assets/images/users/" + JSON.parse(window.atob(loginToken.split('.')[1])).id + "/user.png"} />
+                    <img style={{ width: 200, height: 200, margin: "0 auto" }} className="img-responsive text-center" src={"/assets/images/users/" + JSON.parse(window.atob(loginToken.split('.')[1])).id + "/user.png"} />
                     <h5><span>Username: </span>{this.state.username}
-                    {!(this.props.match.params.username) 
-                        ? <img onClick={this.handleClick} alt="change-user" id="user-change" src={UserIcon} />  
-                        : null
-                    }
+                        {!(this.props.match.params.username)
+                            ? <img onClick={this.handleClick} alt="change-user" id="user-change" src={UserIcon} />
+                            : null
+                        }
                     </h5>
                     <h6><span>Books Published: </span>{this.state.bookCount}</h6>
                     {/* {!(this.props.match.params.username) 
@@ -95,7 +126,7 @@ class Profile extends React.Component {
                         : null
                     } */}
                     {/* checking if profileChange is true and whether a url param username does not exist */}
-                    {(this.state.profileChange) && !(this.props.match.params.username) 
+                    {(this.state.profileChange) && !(this.props.match.params.username)
                         ? <ProfileChange />
                         : null
                     }
@@ -109,9 +140,13 @@ class Profile extends React.Component {
                     <div className="story">
                         {bookList}
                     </div>
-                    <div className="story-synopsis">
-                        <p></p>
-                    </div>
+                    {!(this.props.match.params.username)
+                                    ?
+                                    <div className="text-center">
+                                        <button onClick={() => this.props.history.push("/upload")} className="btn btn-primary btn-sm">Upload a new book!</button>
+                                    </div>
+                                    : null
+                                }
                 </div>
             </div>
         );
