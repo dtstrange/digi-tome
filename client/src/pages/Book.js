@@ -1,7 +1,7 @@
 import React from 'react';
 import BookWindow from '../components/BookWindow';
 import axios from 'axios';
-
+import MyComponent from '../components/MyComponent';
 
 class Book extends React.Component {
     constructor(props) {
@@ -30,17 +30,23 @@ class Book extends React.Component {
         }
         
     }
-    
-    
+
+      
     
     render() {
         return(
-            this.state.file ? 
-            <BookWindow 
-            file={this.state.file} 
-            /> : 
+             this.state.file ? 
+            <div>
+                <BookWindow 
+                file={this.state.file} 
+                />
+                <br></br>
+                <MyComponent/>
+            </div>    
+            :
             <img src="/assets/images/cantfindbook.jpg"/>
-
+    
+            
         );
     }
 }
