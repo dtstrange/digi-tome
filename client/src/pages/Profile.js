@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios'
 import ProfileChange from '../components/ProfileChange.js'
 import UserIcon from '../images/user.png'
+import UpdateForm from '../components/Update.js'
 
 class Profile extends React.Component {
 
@@ -17,7 +18,8 @@ class Profile extends React.Component {
             author: '',
             genre: '',
             description: '',
-            profileChange: false
+            profileChange: false,
+            updateBook: ''
         }
     }
 
@@ -64,9 +66,12 @@ class Profile extends React.Component {
         }
     }
 
-    updateBook = (book) => {
-        alert("trying to update this book \n" + book)
-        console.log(book)
+    showUpdForm = (book) => {
+        // alert("trying to update this book \n" + book)
+        // console.log(book)
+        this.setState({
+            updateBook: book
+        })
     }
 
     render() {
@@ -88,7 +93,7 @@ class Profile extends React.Component {
                                 {!(self.props.match.params.username)
                                     ?
                                     <div style={{ marginLeft: "5px" }} className="btn-group" role="group">
-                                        <button onClick={() => self.updateBook(item)} type="button" className="btn btn-primary btn-xs"><span className="glyphicon glyphicon-pencil"></span></button>
+                                        <button onClick={() => self.showUpdForm(item)} type="button" className="btn btn-primary btn-xs"><span className="glyphicon glyphicon-pencil"></span></button>
                                         <button onClick={() => self.deleteBook(item.id)} type="button" className="btn btn-primary btn-xs"><span className="glyphicon glyphicon-remove"></span></button>
                                     </div>
                                     : null
@@ -121,10 +126,6 @@ class Profile extends React.Component {
                         }
                     </h5>
                     <h6><span>Books Published: </span>{this.state.bookCount}</h6>
-                    {/* {!(this.props.match.params.username) 
-                        ? <button className="btn btn-default" onClick={this.handleClick}>Change Info</button> 
-                        : null
-                    } */}
                     {/* checking if profileChange is true and whether a url param username does not exist */}
                     {(this.state.profileChange) && !(this.props.match.params.username)
                         ? <ProfileChange />
@@ -132,7 +133,11 @@ class Profile extends React.Component {
                     }
 
                 </div>
-
+                {
+                    (this.state.updateBook)
+                    ? <UpdateForm book={this.state.updateBook} />
+                    : null
+                }
                 <div id="profile-stories">
                     <div id="profile-stories-header">
                         <h2>Published Books</h2>

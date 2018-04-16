@@ -2,6 +2,10 @@
 import React from 'react';
 
 class Genre extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             // <select name="genre" size="5">
@@ -16,7 +20,7 @@ class Genre extends React.Component {
             // </select>
             <div>
                 <label htmlFor={this.props.name}>Genre: </label>
-                <select onChange={this.props.onChangeHandler} name={this.props.name}>
+                <select value={this.props.value} onChange={this.props.onChangeHandler} name={this.props.name}>
                     <option></option>
                     <option value="Action/Adventure">Action/Adventure</option>
                     <option value="Drama">Drama</option>

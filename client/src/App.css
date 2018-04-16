@@ -50,7 +50,7 @@ nav .form-control {
     text-align: center;
 }
 
-#my-profile, #profile-stories, #results {
+#my-profile, #profile-stories, #results, #update-form {
     background: #fff;
     color: #333;
     position: relative;
