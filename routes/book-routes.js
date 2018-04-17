@@ -114,79 +114,55 @@ router.get("/search", (req, res) => {
 })
 
 router.put("/update/:id", (req, res) => {
-
-    let book = {}
-    if (req.query.title) {
-        book.title = req.query.title.trim();
-        link = '/books/' + req.payload.id + '/' + req.query.title.trim() + ".pdf";
-    }
-    if (req.query.genre) {
-        book.genre = req.query.genre.trim();
-    }
-    if (req.query.description) {
-        book.description = req.query.description.trim();
-    }
     db.PublishedBooks
-        .findOne({ where: { id: req.params.id } })
-        .then(function (findResponse) {
+        .findOne({ where: { id: req.params.id }})
+        .then((findResponse) => {
+            const bookPath = '/books/' + req.payload.id + '/' + req.query.title.trim() + ".pdf"
+            let book = {
+                title: req.query.title.trim(),
+                genre: req.query.genre.trim(),
+                description: req.query.description.trim(),
+            }
+            if ((req.files) && (req.files.bookFile)) {
+                book.link = bookPath;
+            }
             db.PublishedBooks
-                .update(
-                    book,
-                    { where: { id: req.params.id } }
-                )
-                .then(function (updateResponse) {
-                    if ((req.query.title) && !((req.files) && (req.files.bookFile))) { //if title was changed and no new book uploaded
-                        fs.rename("./books" + findResponse.link, "./books" + book.link, function (error) {
-                            if (error) {
-                                res.status(500).json({ error: error, message: "Error while trying to rename file on server." })
-                            }
-                            else {
-                                res.json({ success: true });
-                            }
-                        })
-                    }
-                    else if (!(req.query.title) && ((req.files) && (req.files.bookFile))) {//if title was unchanged but new book uploaded
-                        req.files.bookFile
-                            .mv("./books" + findResponse.link)
-                            .then(function (mvResponse) {
-                                res.json({ success: true });
-                            })
-                            .catch(function (error) {
-                                res.status(500).json({ error: error, message: "Error while trying to upload new book file." })
-                            })
-                    }
-                    else if ((req.query.title) && ((req.files) && (req.files.bookFile))) {//if title was changed and new book uploaded
-                        fs.rename("./books" + findResponse.link, "./books" + book.link, function (error) {
-                            if (error) {
-                                res.status(500).json({ error: error, message: "Error while trying to rename file on server." })
-                            }
-                            else {
-                                req.files.bookFile
-                                    .mv("./books" + book.link)
-                                    .then(function (mvResponse) {
-                                        res.json({ success: true });
-                                    })
-                                    .catch(function (error) {
-                                        res.status(500).json({ error: error, message: "Error while trying to upload new book file." })
-                                    })
-                            }
-                        })
-                    }
-                    else {//if title was unchanged and no new book uploaded
-                        res.json({ success: true, foundResponse: findResponse, updateResponse: updateResponse });
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    return res.status(500).end('Book update failed' + err.toString());
-                });
+            .update(
+                book,
+                { where: { id: req.params.id }}
+            )
+            .then((updateResponse) => {
+                if ((req.files) && (req.files.bookFile)) {
+                    fs.unlink("./books" + findResponse.link, (error) => {
+                        if (error) {
+                            console.error(error)
+                            res.status(500).json({ error: error, message: "Error while trying to delete old book!" })
+                        } else {
+                            req.files.bookFile
+                                .mv("./books" + book.link)
+                                .then((mvResponse) => {
+                                    res.json({ success: true })
+                                })
+                                .catch((err) => {
+                                    console.error(err)
+                                    res.status(500).json({ error: err, message: "Error while saving new book file!" })
+                                })
+                        }
+                    })
+                } else {
+                    res.json({ success: true })
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+                res.status(500).json({ error: err, message: "Error updating database!" })
+            })
         })
-        .catch(function (error) {
-            console.error(error);
-            res.status(500).json({error: error, message: "Book not found!" })
+        .catch((err) => {
+            console.error(err);
+            res.status(500).json({ error: err, message: "Book not found!" })
         })
-});
-
+})
 router.delete("/delete/:id", (req, res) => {
     db.PublishedBooks
         .findOne({ where: { id: req.params.id }})

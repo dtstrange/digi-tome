@@ -7,25 +7,14 @@ class Update extends React.Component {
         super(props);
     }
     state = {
-        title: '',
-        description: '',
-        genre1: '',
-        genre2: '',
-        genre3: '',
+        title: this.props.book.title,
+        description: this.props.book.description,
+        genre1: this.props.book.genre.split(',')[0],
+        genre2: (this.props.book.genre.split(',')[1]) ? this.props.book.genre.split(',')[1] : '',
+        genre3: (this.props.book.genre.split(',')[2]) ? this.props.book.genre.split(',')[2] : '',
         bookFile: ''
     }
-    componentDidMount() {
-        console.log(this.props.book, this.state);
-        let stateObj = {
-            title: this.props.book.title,
-            description: this.props.book.description
-        }
-        const genreList = this.props.book.genre.split(',');
-        if (genreList[0]) { stateObj.genre1 = genreList[0]; }
-        if (genreList[1]) { stateObj.genre2 = genreList[1]; }
-        if (genreList[2]) { stateObj.genre3 = genreList[2]; }
-        this.setState(stateObj, (resp) => console.log(this.state))
-    }
+
     onChangeHandler = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -48,7 +37,7 @@ class Update extends React.Component {
             .then((data) => {
                 console.log(data);
                 // window.location = '/profile';
-                this.props.history.push("/profile");
+                this.props.refreshPg();
             }).catch((error) => {
                 console.error(error);
             })

@@ -65,7 +65,12 @@ class Profile extends React.Component {
                 })
         }
     }
-
+    refreshPg = () => {
+        this.setState({
+            updateBook: ''
+        }, () => this.props.history.push("/profile"))
+        
+    }
     showUpdForm = (book) => {
         // alert("trying to update this book \n" + book)
         // console.log(book)
@@ -85,7 +90,7 @@ class Profile extends React.Component {
                 return (
                     <div key={i}>
                         <div className="story-title-author">
-                            <Link to={'./book/' + item.id} activeClassName="active">
+                            <Link to={'/book/' + item.id} activeClassName="active">
                                 <h3 className="story-title">{item.title}</h3>
                             </Link>
                             <h5 className="story-author">
@@ -135,7 +140,7 @@ class Profile extends React.Component {
                 </div>
                 {
                     (this.state.updateBook)
-                    ? <UpdateForm book={this.state.updateBook} />
+                    ? <UpdateForm refreshPg={this.refreshPg} book={this.state.updateBook} />
                     : null
                 }
                 <div id="profile-stories">
