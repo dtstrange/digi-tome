@@ -2,21 +2,32 @@
 import React from 'react';
 
 class Genre extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    state = {
+        [this.props.name]: ''
+    }
+    stateHandler = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+        this.props.onChangeHandler(event)
+        
+    }
+
+    componentDidMount() {
+        console.log("test", this.props)
+        this.setState({
+            [this.props.name]: (this.props.value) ? this.props.value : ''
+        })
+    }
     render() {
         return (
-            // <select name="genre" size="5">
-            //     <option value="action-adventure">Action/Adventure</option>
-            //     <option value="drama">Drama</option>
-            //     <option value="fiction">Fiction</option>
-            //     <option value="horror">Horror</option>                   
-            //     <option value="mystery">Mystery</option>
-            //     <option value="romance">Romance</option>
-            //     <option value="satire">Satire</option>
-            //     <option value="sci-fi">Sci-Fi</option>                    
-            // </select>
             <div>
                 <label htmlFor={this.props.name}>Genre: </label>
-                <select onChange={this.props.onChangeHandler} name={this.props.name}>
+                <select value={this.state[this.props.name]} onChange={this.stateHandler} name={this.props.name}>
                     <option></option>
                     <option value="Action/Adventure">Action/Adventure</option>
                     <option value="Drama">Drama</option>
