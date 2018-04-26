@@ -113,46 +113,81 @@ router.get("/search", (req, res) => {
         })
 })
 
-router.put("/upload/:id", (req, res) => {
-    var book = {
-        title: req.body.title.trim(),
-        genre: req.body.genre,
-        pageCount: req.body.pageCount.trim()
-    }
-
-    db.PublishedBooks.update({
-        book, where: {
-            id: req.param.id
-        }
-    })
-        .then(function (resp) {
-            res.json({ success: true });
+router.put("/update/:id", (req, res) => {
+    db.PublishedBooks
+        .findOne({ where: { id: req.params.id }})
+        .then((findResponse) => {
+            const bookPath = '/books/' + req.payload.id + '/' + req.query.title.trim() + ".pdf"
+            let book = {
+                title: req.query.title.trim(),
+                genre: req.query.genre.trim(),
+                description: req.query.description.trim(),
+            }
+            if ((req.files) && (req.files.bookFile)) {
+                book.link = bookPath;
+            }
+            db.PublishedBooks
+            .update(
+                book,
+                { where: { id: req.params.id }}
+            )
+            .then((updateResponse) => {
+                if ((req.files) && (req.files.bookFile)) {
+                    fs.unlink("./books" + findResponse.link, (error) => {
+                        if (error) {
+                            console.error(error)
+                            res.status(500).json({ error: error, message: "Error while trying to delete old book!" })
+                        } else {
+                            req.files.bookFile
+                                .mv("./books" + book.link)
+                                .then((mvResponse) => {
+                                    res.json({ success: true })
+                                })
+                                .catch((err) => {
+                                    console.error(err)
+                                    res.status(500).json({ error: err, message: "Error while saving new book file!" })
+                                })
+                        }
+                    })
+                } else {
+                    res.json({ success: true })
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+                res.status(500).json({ error: err, message: "Error updating database!" })
+            })
         })
-        .catch(err => {
+        .catch((err) => {
             console.error(err);
-            return res.status(500).end('Book update failed' + err.toString());
-        });
-});
-
+            res.status(500).json({ error: err, message: "Book not found!" })
+        })
+})
 router.delete("/delete/:id", (req, res) => {
-    var book = {
-        title: req.body.title.trim(),
-        genre: req.body.genre,
-        pageCount: req.body.pageCount.trim()
-    }
-
-    db.PublishedBooks.destroy({
-        where: {
-            id: req.param.id
-        }
-    })
-        .then(function (resp) {
-            res.json({ success: true });
+    db.PublishedBooks
+        .findOne({ where: { id: req.params.id }})
+        .then(function(response) {
+            fs.unlink("./books" + response.link, function(error) {
+                if (error) {
+                    res.status(500).json({error: error, message: "Error while trying to delete book from server." })
+                }
+                else {
+                    db.PublishedBooks
+                        .destroy({ where: { id: req.params.id }})
+                        .then(function (resp) {
+                            res.json({ success: true });
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            res.status(500).json({error: error, message: "Error while trying to remove book from database" });
+                        });
+                }
+            })
         })
-        .catch(err => {
-            console.error(err);
-            return res.status(500).end('Book delete failed' + err.toString());
-        });
+        .catch(function(error) {
+            console.error(error);
+            res.status(500).json({error: error, message: "Book not found!"})
+        })
 });
 
 module.exports = router;
