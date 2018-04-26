@@ -60,7 +60,7 @@ class ProfileChange extends React.Component {
                     <input onChange={this.onChangeHandler} name="password" type="text" />
                     <label htmlFor="userPic">Change Profile Picture</label>
                     <input onChange={this.onChangeHandler} name="userPic" accept=".png" id="pic-file" type="file" />
-                    <input className="btn btn-default" onClick={this.submitUserChange} type="submit" type="submit" value="Submit" />
+                    <input className="btn btn-default" onClick={this.submitUserChange} type="submit" value="Submit" />
                 </form>
             </div>
         )

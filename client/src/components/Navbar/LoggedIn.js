@@ -1,9 +1,7 @@
 import React from 'react'
 
 class LoggedIn extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+
     logOut = () => {
         window.localStorage.removeItem("token");
         window.location = "/";
@@ -22,7 +20,7 @@ class LoggedIn extends React.Component {
                         <a href="/profile" /*onClick={this.profile}*/ type="button" className="btn btn-default"><span className="glyphicon glyphicon-user"></span></a>
                     </div>
                     <div className="btn-group" role="group">
-                    <a href="#" onClick={this.logOut} type="button" className="btn btn-default"><span className="glyphicon glyphicon-log-out"></span></a>
+                    <a href="" onClick={this.logOut} type="button" className="btn btn-default"><span className="glyphicon glyphicon-log-out"></span></a>
                     </div>
                 </div>
             </div>

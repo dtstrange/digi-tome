@@ -2,10 +2,6 @@
 import React from 'react';
 
 class Genre extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         [this.props.name]: ''
     }

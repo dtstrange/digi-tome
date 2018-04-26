@@ -3,9 +3,6 @@ import Genre from '../components/Genre.js';
 import axios from 'axios'
 
 class Upload extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     state = {
         title: '',
         description: '',
@@ -41,21 +38,23 @@ class Upload extends React.Component {
 
     render() {
         return (
-            
-                <form style={{display: "flex", flexDirection: "column"}} className="text-center" id="upload-form" encType="multipart/form-data">
-                    <h3>Upload a Book</h3>
-                    <label htmlFor="title">Title:</label>
-                    <input onChange={this.onChangeHandler} name="title" id="upload-title" type="text" />
-                    <Genre name="genre1" onChangeHandler={this.onChangeHandler} />
-                    <Genre name="genre2" onChangeHandler={this.onChangeHandler} />
-                    <Genre name="genre3" onChangeHandler={this.onChangeHandler} />
-                    <label htmlFor="description">Synopsis:</label>
-                    <input onChange={this.onChangeHandler} name="description" id="upload-synopsis" type="text" />
-                    <label htmlFor="bookFile">Select PDF:</label>
-                    <input name="bookFile" onChange={this.onChangeHandler} accept=".pdf" id="pdf-file" type="file" />
-                    <input onClick={this.submitBook} className="submit btn btn-default" type="submit" value="Submit" />                    
-                </form>
-            
+            <div className="row">
+                <div className="col-xs-10 col-xs-offset-1">
+                    <form style={{ display: "flex", flexDirection: "column" }} className="text-center" id="upload-form" encType="multipart/form-data">
+                        <h3>Upload a Book</h3>
+                        <label htmlFor="title">Title:</label>
+                        <input onChange={this.onChangeHandler} name="title" id="upload-title" type="text" />
+                        <Genre name="genre1" onChangeHandler={this.onChangeHandler} />
+                        <Genre name="genre2" onChangeHandler={this.onChangeHandler} />
+                        <Genre name="genre3" onChangeHandler={this.onChangeHandler} />
+                        <label htmlFor="description">Synopsis:</label>
+                        <input onChange={this.onChangeHandler} name="description" id="upload-synopsis" type="text" />
+                        <label htmlFor="bookFile">Select PDF:</label>
+                        <input name="bookFile" onChange={this.onChangeHandler} accept=".pdf" id="pdf-file" type="file" />
+                        <input onClick={this.submitBook} className="submit btn btn-default" type="submit" value="Submit" />
+                    </form>
+                </div>
+            </div>
         );
     }
 }
