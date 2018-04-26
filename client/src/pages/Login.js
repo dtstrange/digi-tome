@@ -28,12 +28,14 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div>
-            {
-            (this.state.formState === "login")
-            ? <LoginForm changeForm={this.changeFormState} /> 
-            : <SignupForm changeForm={this.changeFormState} />
-            }
+            <div className="row">
+                <div className="col-xs-12">
+                    {
+                        (this.state.formState === "login")
+                            ? <LoginForm changeForm={this.changeFormState} />
+                            : <SignupForm changeForm={this.changeFormState} />
+                    }
+                </div>
             </div>
         );
     }

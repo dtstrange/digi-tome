@@ -3,9 +3,6 @@ import React from 'react';
 import Genre from './Genre';
 
 class SearchForm extends React.Component {
-    constructor(props) {
-        super(props) 
-    }
     state = {
         title: "",
         author: "",

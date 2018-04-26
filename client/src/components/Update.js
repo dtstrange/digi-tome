@@ -3,9 +3,6 @@ import Genre from '../components/Genre.js';
 import axios from 'axios'
 
 class Update extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     state = {
         title: this.props.book.title,
         description: this.props.book.description,
