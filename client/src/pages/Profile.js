@@ -18,7 +18,8 @@ class Profile extends React.Component {
             genre: '',
             description: '',
             profileChange: false,
-            updateBook: ''
+            updateBook: '',
+            userId: ''
         }
     }
 
@@ -41,7 +42,8 @@ class Profile extends React.Component {
                 this.setState({
                     books: resp.data.PublishedBooks,
                     bookCount: resp.data.PublishedBooks.length,
-                    username: resp.data.username
+                    username: resp.data.username,
+                    userId: resp.data.id
                 })
 
 
@@ -121,7 +123,7 @@ class Profile extends React.Component {
                 <div className="col-xs-10 col-xs-offset-1">
                     <div className="text-center" id="my-profile">
                         <h2 id="my-profile-header">My Profile</h2>
-                        <img alt='' style={{ width: 200, height: 200, margin: "0 auto" }} className="img-responsive text-center" src={"/assets/images/users/" + JSON.parse(window.atob(loginToken.split('.')[1])).id + "/user.png"} />
+                        <img alt='' style={{ width: 200, height: 200, margin: "0 auto" }} className="img-responsive text-center" src={"/assets/images/users/" + this.state.userId + "/user.png"} />
                         <h5><span>Username: </span>{this.state.username}
                             {!(this.props.match.params.username)
                                 ? <img onClick={this.handleClick} alt="change-user" id="user-change" src={UserIcon} />
