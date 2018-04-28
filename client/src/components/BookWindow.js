@@ -13,11 +13,13 @@ class BookWindow extends React.Component {
     this.setState({ page });
   }
 
-  handlePrevious = () => {
+  handlePrevious = (e) => {
+    e.preventDefault();
     this.setState({ page: this.state.page - 1 });
   }
 
-  handleNext = () => {
+  handleNext = (e) => {
+    e.preventDefault();
     this.setState({ page: this.state.page + 1 });
   }
 
